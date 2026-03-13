@@ -170,23 +170,6 @@ export default function AboutSection({
               </p>
             ))}
 
-            {/* CTAs */}
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Link
-                href={auditUrl}
-                className="font-display text-sm tracking-widest uppercase font-black px-8 py-4 transition-opacity hover:opacity-90 inline-block"
-                style={{ backgroundColor: "var(--pink)", color: "#fff" }}
-              >
-                Take the Blind Spot Audit →
-              </Link>
-              <Link
-                href="#services"
-                className="font-display text-sm tracking-widest uppercase font-semibold border-b-2 pb-0.5 transition-opacity hover:opacity-60"
-                style={{ color: "var(--black)", borderColor: "var(--black)" }}
-              >
-                See How It Works
-              </Link>
-            </div>
           </div>
 
           {/* Right: numbered items */}
@@ -219,6 +202,25 @@ export default function AboutSection({
           </div>
 
         </div>
+
+        {/* ── CTAs — full width, centred below both columns ── */}
+        <div className="mt-12 flex flex-wrap justify-center items-center gap-4">
+          <Link
+            href={auditUrl}
+            className="font-display text-sm tracking-widest uppercase font-black px-8 py-4 transition-opacity hover:opacity-90 inline-block"
+            style={{ backgroundColor: "var(--pink)", color: "#fff" }}
+          >
+            Take the Blind Spot Audit →
+          </Link>
+          <Link
+            href={BLIND_SPOT_URL}
+            className="font-display text-sm tracking-widest uppercase font-semibold border-b-2 pb-0.5 transition-opacity hover:opacity-60"
+            style={{ color: "var(--black)", borderColor: "var(--black)" }}
+          >
+            Book a Free Strategy Call
+          </Link>
+        </div>
+
       </div>
     </section>
   );

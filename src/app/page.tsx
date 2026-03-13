@@ -5,7 +5,6 @@ import { HOMEPAGE_QUERY } from "@/sanity/lib/queries";
 import { BLIND_SPOT_URL } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import PhotoHero from "@/components/PhotoHero";
 import AboutSection from "@/components/AboutSection";
 import ServicesSection from "@/components/ServicesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -26,12 +25,6 @@ export default async function HomePage() {
         heroImage={data?.heroImage as never}
         heroBannerItems={data?.heroBannerItems ?? ["ELITE SPORT → BUSINESS", "PURPOSE-DRIVEN LEADERS", "IDENTITY-LED GROWTH"]}
         auditCtaUrl={data?.auditCtaUrl ?? BLIND_SPOT_URL}
-      />
-
-      <PhotoHero
-        title={data?.photoHeroTitle ?? "IDENTITY & BUSINESS EXPANSION STRATEGIST."}
-        subtitle={data?.photoHeroSubtitle ?? "for Coaches, Creators & CEOs"}
-        image={data?.photoHeroImage as never}
       />
 
       <AboutSection
