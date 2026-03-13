@@ -114,13 +114,13 @@ export default function AboutSection({
 
         {/* Left: pink suit photo, constrained and centred */}
         <div className="relative flex items-center justify-center p-10" style={{ minHeight: "620px" }}>
-          <div className="relative overflow-hidden" style={{ width: "260px", aspectRatio: "4/5" }}>
+          <div className="relative overflow-hidden" style={{ width: "520px", aspectRatio: "4/5" }}>
             <Image
               src="/images/kye-photo-hero.png"
               alt="Kye Simmons"
               fill
               className="object-cover object-center"
-              sizes="260px"
+              sizes="520px"
             />
           </div>
         </div>
@@ -227,7 +227,8 @@ export default function AboutSection({
       </div>
 
       {/* Mobile only: pink suit image between divider and "I'm Kye Simmons" */}
-      <div className="lg:hidden relative w-full overflow-hidden mt-10" style={{ aspectRatio: "4/5" }}>
+      <div className="lg:hidden flex justify-center mt-10">
+      <div className="relative overflow-hidden" style={{ width: "80%", aspectRatio: "4/5" }}>
         <Image
           src="/images/kye-photo-hero.png"
           alt="Kye Simmons"
@@ -235,6 +236,7 @@ export default function AboutSection({
           className="object-cover object-center"
           sizes="100vw"
         />
+      </div>
       </div>
 
       {/* ══ BLOCK 2: Body + items — full width, black ══ */}
