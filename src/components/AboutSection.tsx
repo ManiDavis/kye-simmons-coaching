@@ -112,19 +112,21 @@ export default function AboutSection({
           ══════════════════════════════════════════════ */}
       <div className="relative hidden lg:grid grid-cols-2 items-stretch">
 
-        {/* Left: pink suit photo, full bleed */}
-        <div className="relative overflow-hidden" style={{ minHeight: "620px" }}>
-          <Image
-            src="/images/kye-photo-hero.png"
-            alt="Kye Simmons"
-            fill
-            className="object-cover object-center"
-            sizes="50vw"
-          />
+        {/* Left: pink suit photo, constrained and centred */}
+        <div className="relative flex items-center justify-center p-10" style={{ minHeight: "620px" }}>
+          <div className="relative overflow-hidden" style={{ width: "260px", aspectRatio: "4/5" }}>
+            <Image
+              src="/images/kye-photo-hero.png"
+              alt="Kye Simmons"
+              fill
+              className="object-cover object-center"
+              sizes="260px"
+            />
+          </div>
         </div>
 
         {/* Right: all text, right-aligned */}
-        <div className="flex flex-col justify-between px-14 py-16 text-right">
+        <div className="flex flex-col px-14 py-16 text-right">
           <div>
             {headingLines.map((line, i) => (
               <span
@@ -144,7 +146,7 @@ export default function AboutSection({
             ))}
           </div>
 
-          <div>
+          <div className="mt-20">
             <blockquote
               className="about-fade border-r-4 pr-5 mb-8"
               style={{ borderColor: "var(--pink)", animationDelay: "0.55s" } as React.CSSProperties}
@@ -194,18 +196,7 @@ export default function AboutSection({
           ))}
         </div>
 
-        {/* Pink suit image, portrait */}
-        <div className="relative w-full overflow-hidden" style={{ aspectRatio: "4/5" }}>
-          <Image
-            src="/images/kye-photo-hero.png"
-            alt="Kye Simmons"
-            fill
-            className="object-cover object-center"
-            sizes="100vw"
-          />
-        </div>
-
-        {/* Blockquote + stats below image */}
+        {/* Blockquote + stats */}
         <div className="px-6 pt-10 pb-6">
           <blockquote
             className="about-fade border-l-4 pl-5 mb-8"
@@ -233,6 +224,17 @@ export default function AboutSection({
       {/* Gold divider */}
       <div className="max-w-7xl mx-auto px-6">
         <div style={{ height: "1px", backgroundColor: "rgba(201,168,76,0.2)" }} />
+      </div>
+
+      {/* Mobile only: pink suit image between divider and "I'm Kye Simmons" */}
+      <div className="lg:hidden relative w-full overflow-hidden mt-10" style={{ aspectRatio: "4/5" }}>
+        <Image
+          src="/images/kye-photo-hero.png"
+          alt="Kye Simmons"
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+        />
       </div>
 
       {/* ══ BLOCK 2: Body + items — full width, black ══ */}
