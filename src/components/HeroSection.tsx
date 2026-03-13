@@ -22,7 +22,7 @@ export default function HeroSection({
   heroBannerItems = [],
   auditCtaUrl,
 }: HeroSectionProps) {
-  const words = heroStatement ? heroStatement.split(" ") : ["YOUR IDENTITY IS THE STRATEGY."];
+  const words = heroStatement ? heroStatement.split(" ") : ["YOUR", "IDENTITY", "IS", "THE", "STRATEGY."];
   const auditUrl = auditCtaUrl || BLIND_SPOT_URL;
 
   const kyeImageSrc = heroImage?.asset
@@ -31,39 +31,69 @@ export default function HeroSection({
 
   const kyeImageAlt = heroImage?.alt || "Kye Simmons";
 
+  // Subtext + CTAs start animating while last few words are still coming in
+  const subtextDelay = `${Math.max(words.length - 2, 1) * 0.08 + 0.2}s`;
+  const ctaDelay     = `${Math.max(words.length - 2, 1) * 0.08 + 0.35}s`;
+  const labelDelay   = `${Math.max(words.length - 2, 1) * 0.08 + 0.48}s`;
+
   return (
     <section
       id="hero"
       className="relative overflow-hidden"
-      style={{ backgroundColor: "var(--cream)", paddingTop: "64px" }}
+      style={{ backgroundColor: "var(--cream)", paddingTop: "64px", minHeight: "100vh" }}
     >
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-0 lg:min-h-[90vh] lg:items-center">
-        {/* Left content */}
-        <div className="py-14 lg:py-24 relative z-10">
-          {/* Giant stacked display type */}
-          <h1 className="font-display font-black leading-none mb-8" style={{ color: "var(--pink)" }}>
-            {words.map((word, i) => (
-              <span key={i} className="block text-[clamp(3.5rem,10vw,9rem)] uppercase">
-                {word}
-              </span>
-            ))}
-          </h1>
+      {/* Exact-viewport grid — locks everything in one screen on desktop */}
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-0 lg:h-[calc(100vh-64px)] lg:items-center">
 
-          {/* Subtext — Cormorant Garamond italic for editorial elegance */}
+        {/* ── LEFT: text content ── */}
+        <div className="py-8 lg:py-0 relative z-10 flex flex-col justify-center">
+
+          {/* Stacked heading — each word flies up independently */}
+          <div className="overflow-hidden">
+            <h1 className="font-display font-black leading-[0.92] mb-5" style={{ color: "var(--pink)" }}>
+              {words.map((word, i) => (
+                <span
+                  key={i}
+                  className="block text-[clamp(2rem,4.8vw,4.4rem)] uppercase animate-hero-word"
+                  style={{ animationDelay: `${i * 0.08}s` }}
+                >
+                  {word}
+                </span>
+              ))}
+            </h1>
+          </div>
+
+          {/* Pink accent line — draws in after heading */}
+          <div
+            className="h-[3px] mb-5 animate-hero-line"
+            style={{
+              backgroundColor: "var(--pink)",
+              animationDelay: `${(words.length - 1) * 0.08 + 0.1}s`,
+            }}
+          />
+
+          {/* Subtext */}
           {heroSubtext && (
             <p
-              className="font-serif italic text-lg lg:text-xl leading-relaxed mb-8 max-w-md"
-              style={{ color: "var(--mid-grey)", textWrap: "pretty" } as React.CSSProperties}
+              className="font-serif italic text-base lg:text-lg leading-relaxed mb-6 max-w-sm animate-hero-fade"
+              style={{
+                color: "var(--mid-grey)",
+                textWrap: "pretty",
+                animationDelay: subtextDelay,
+              } as React.CSSProperties}
             >
               {heroSubtext}
             </p>
           )}
 
           {/* CTAs */}
-          <div className="flex flex-wrap items-center gap-4 mb-4">
+          <div
+            className="flex flex-wrap items-center gap-4 mb-3 animate-hero-fade"
+            style={{ animationDelay: ctaDelay } as React.CSSProperties}
+          >
             <Link
               href={auditUrl}
-              className="font-display text-sm tracking-widest uppercase font-black px-8 py-4 transition-opacity hover:opacity-90 inline-block"
+              className="font-display text-sm tracking-widest uppercase font-black px-7 py-3.5 transition-all hover:opacity-90 hover:scale-[1.02] inline-block"
               style={{ backgroundColor: "var(--pink)", color: "#fff" }}
             >
               Take the Blind Spot Audit →
@@ -79,14 +109,20 @@ export default function HeroSection({
 
           {/* Gold label */}
           {heroAuditLabel && (
-            <p className="text-xs font-semibold tracking-widest uppercase mt-4" style={{ color: "var(--gold)" }}>
+            <p
+              className="text-xs font-semibold tracking-widest uppercase animate-hero-fade"
+              style={{
+                color: "var(--gold)",
+                animationDelay: labelDelay,
+              } as React.CSSProperties}
+            >
               {heroAuditLabel}
             </p>
           )}
         </div>
 
-        {/* Mobile image — full width, shown only on mobile */}
-        <div className="block lg:hidden relative w-full overflow-hidden" style={{ aspectRatio: "3/4" }}>
+        {/* ── MOBILE image — below text, portrait ── */}
+        <div className="block lg:hidden relative w-full overflow-hidden animate-hero-image" style={{ aspectRatio: "3/4", animationDelay: "0.1s" } as React.CSSProperties}>
           <Image
             src={kyeImageSrc}
             alt={kyeImageAlt}
@@ -97,22 +133,17 @@ export default function HeroSection({
             placeholder={heroImage?.asset?.metadata?.lqip ? "blur" : "empty"}
             blurDataURL={heroImage?.asset?.metadata?.lqip}
           />
-          {/* Name tag overlay */}
-          <div
-            className="absolute bottom-0 left-0 px-5 py-3"
-            style={{ backgroundColor: "var(--black)" }}
-          >
-            <p className="font-display font-black text-base tracking-widest uppercase" style={{ color: "#fff" }}>
-              KYE SIMMONS
-            </p>
-            <p className="font-display text-xs tracking-widest uppercase" style={{ color: "var(--gold)" }}>
-              Identity + Expansion Strategist
-            </p>
+          <div className="absolute bottom-0 left-0 px-5 py-3" style={{ backgroundColor: "var(--black)" }}>
+            <p className="font-display font-black text-base tracking-widest uppercase" style={{ color: "#fff" }}>KYE SIMMONS</p>
+            <p className="font-display text-xs tracking-widest uppercase" style={{ color: "var(--gold)" }}>Identity + Expansion Strategist</p>
           </div>
         </div>
 
-        {/* Desktop image — right panel, hidden on mobile */}
-        <div className="relative hidden lg:block h-full min-h-[90vh]">
+        {/* ── DESKTOP image — right panel, full height ── */}
+        <div
+          className="relative hidden lg:block h-full overflow-hidden animate-hero-image"
+          style={{ animationDelay: "0.05s" } as React.CSSProperties}
+        >
           <Image
             src={kyeImageSrc}
             alt={kyeImageAlt}
@@ -123,19 +154,12 @@ export default function HeroSection({
             placeholder={heroImage?.asset?.metadata?.lqip ? "blur" : "empty"}
             blurDataURL={heroImage?.asset?.metadata?.lqip}
           />
-          {/* Name tag overlay */}
-          <div
-            className="absolute bottom-10 left-0 px-6 py-4"
-            style={{ backgroundColor: "var(--black)" }}
-          >
-            <p className="font-display font-black text-lg tracking-widest uppercase" style={{ color: "#fff" }}>
-              KYE SIMMONS
-            </p>
-            <p className="font-display text-xs tracking-widest uppercase" style={{ color: "var(--gold)" }}>
-              Identity + Expansion Strategist
-            </p>
+          <div className="absolute bottom-10 left-0 px-6 py-4" style={{ backgroundColor: "var(--black)" }}>
+            <p className="font-display font-black text-lg tracking-widest uppercase" style={{ color: "#fff" }}>KYE SIMMONS</p>
+            <p className="font-display text-xs tracking-widest uppercase" style={{ color: "var(--gold)" }}>Identity + Expansion Strategist</p>
           </div>
         </div>
+
       </div>
 
       {/* Marquee ticker */}

@@ -40,6 +40,53 @@ body {
   font-family: "Great Vibes", cursive;
 }
 
+/* ── Hero entrance animations ─────────────────────────────── */
+
+@keyframes heroWordIn {
+  from {
+    opacity: 0;
+    transform: translateY(52px) skewY(2deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) skewY(0deg);
+  }
+}
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroImageReveal {
+  from { opacity: 0; transform: scale(1.05) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes heroLineGrow {
+  from { width: 0; opacity: 0; }
+  to   { width: 64px; opacity: 1; }
+}
+
+.animate-hero-word {
+  opacity: 0;
+  animation: heroWordIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-hero-fade {
+  opacity: 0;
+  animation: heroFadeUp 0.55s ease both;
+}
+
+.animate-hero-image {
+  animation: heroImageReveal 1.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-hero-line {
+  animation: heroLineGrow 0.5s ease both;
+}
+
+/* ── Marquee animation ────────────────────────────────────── */
 /* Marquee animation */
 @keyframes marquee {
   from { transform: translateX(0); }
