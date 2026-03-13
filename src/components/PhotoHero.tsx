@@ -19,7 +19,7 @@ export default function PhotoHero({ title, subtitle, image }: PhotoHeroProps) {
     : "/images/kye-photo-hero.png";
 
   return (
-    <section className="relative w-full min-h-[70vh] flex items-end overflow-hidden">
+    <section className="relative w-full aspect-[4/5] md:aspect-auto md:min-h-[70vh] flex items-end overflow-hidden">
       {/* Desktop background — headshot, landscape crop */}
       <Image
         src={desktopSrc}

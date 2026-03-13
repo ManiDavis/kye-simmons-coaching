@@ -171,18 +171,22 @@ export default function AboutSection({
           ))}
 
           {/* Numbered items */}
-          <div className="mt-10 space-y-6">
-            {items.map((item) => (
-              <div key={item._key} className="flex gap-4">
+          <div className="mt-10">
+            {items.map((item, index) => (
+              <div
+                key={item._key}
+                className="flex gap-4 py-6"
+                style={index > 0 ? { borderTop: "1px solid rgba(0,0,0,0.12)" } : undefined}
+              >
                 <span
                   className="font-display font-black text-2xl shrink-0 w-10"
-                  style={{ color: "var(--dark-grey)", opacity: 0.2 }}
+                  style={{ color: "var(--pink)", opacity: 0.4 }}
                 >
                   {item.number}
                 </span>
                 <div>
                   <p
-                    className="font-display text-xs tracking-[0.2em] uppercase font-black mb-1"
+                    className="font-display text-xs tracking-[0.2em] uppercase font-black mb-2"
                     style={{ color: "var(--pink)" }}
                   >
                     {item.label}

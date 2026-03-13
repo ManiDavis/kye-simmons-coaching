@@ -43,12 +43,12 @@ export default async function HomePage() {
         auditCtaUrl={data?.auditCtaUrl ?? BLIND_SPOT_URL}
       />
 
-      <ServicesSection services={data?.services as never} />
-
       <TestimonialsSection
         testimonials={data?.testimonials as never}
         featuredQuotes={data?.featuredQuotes as never}
       />
+
+      <ServicesSection services={data?.services as never} />
 
       <AuditCTA
         heading={data?.auditHeading}
