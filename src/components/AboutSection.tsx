@@ -62,6 +62,11 @@ const defaultItems: AboutItem[] = [
   },
 ];
 
+const statItems = [
+  { stat: "ELITE", sub: "SPORT BACKGROUND" },
+  { stat: "2×", sub: "HIGH-PERFORMANCE ARENAS" },
+];
+
 export default function AboutSection({
   headingLines = defaultHeadingLines,
   blockquote = '"The ceiling you keep hitting isn\'t a strategy problem. It\'s an identity problem. I know — because I had to solve it in myself first."',
@@ -85,16 +90,16 @@ export default function AboutSection({
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.08 }
     );
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section ref={sectionRef} id="about" style={{ backgroundColor: "var(--black)" }}>
+    <section ref={sectionRef} id="about" className="relative" style={{ backgroundColor: "var(--black)" }}>
 
-      {/* Subtle gold diagonal texture across whole section */}
+      {/* Subtle gold diagonal texture */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.025]"
         style={{
@@ -102,57 +107,82 @@ export default function AboutSection({
         }}
       />
 
-      {/* ══ BLOCK 1: Profile intro + big heading ══ */}
-      <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-14">
+      {/* ══════════════════════════════════════════════
+          DESKTOP BLOCK 1: image left / text right
+          ══════════════════════════════════════════════ */}
+      <div className="relative hidden lg:grid grid-cols-2 items-stretch">
 
-        {/* Circular profile pic + label row */}
-        <div
-          className="about-fade flex items-center gap-6 mb-14"
-          style={{ animationDelay: "0s" } as React.CSSProperties}
-        >
-          <div
-            className="relative shrink-0 rounded-full overflow-hidden"
-            style={{
-              width: 130,
-              height: 130,
-              border: "2px solid rgba(201,168,76,0.45)",
-              boxShadow: "0 0 0 6px rgba(201,168,76,0.08)",
-            }}
-          >
-            <Image
-              src="/images/kye-about.jpg"
-              alt="Kye Simmons"
-              fill
-              className="object-cover object-top"
-              sizes="130px"
-            />
-          </div>
-          <div>
-            <p
-              className="font-display font-black text-base tracking-widest uppercase mb-1"
-              style={{ color: "#fff" }}
-            >
-              Kye Simmons
-            </p>
-            <p
-              className="font-display text-xs tracking-[0.3em] uppercase flex items-center gap-3"
-              style={{ color: "var(--gold)" }}
-            >
-              <span className="block h-px w-8 shrink-0" style={{ backgroundColor: "var(--gold)" }} />
-              The Person Behind the Work
-            </p>
-          </div>
+        {/* Left: pink suit photo, full bleed */}
+        <div className="relative overflow-hidden" style={{ minHeight: "620px" }}>
+          <Image
+            src="/images/kye-photo-hero.png"
+            alt="Kye Simmons"
+            fill
+            className="object-cover object-center"
+            sizes="50vw"
+          />
         </div>
 
-        {/* BIG heading — full section width, much bolder now */}
-        <div className="mb-14">
+        {/* Right: all text, right-aligned */}
+        <div className="flex flex-col justify-between px-14 py-16 text-right">
+          <div>
+            {headingLines.map((line, i) => (
+              <span
+                key={line._key}
+                className={`about-word block leading-[0.88] ${
+                  line.text.toLowerCase() === "exactly"
+                    ? "font-serif italic font-bold text-[clamp(3.5rem,7vw,8rem)]"
+                    : "font-display font-black text-[clamp(3.5rem,7vw,8rem)] uppercase"
+                }`}
+                style={{
+                  color: colorMap[line.color] || "#fff",
+                  animationDelay: `${i * 0.1}s`,
+                } as React.CSSProperties}
+              >
+                {line.text}
+              </span>
+            ))}
+          </div>
+
+          <div>
+            <blockquote
+              className="about-fade border-r-4 pr-5 mb-8"
+              style={{ borderColor: "var(--pink)", animationDelay: "0.55s" } as React.CSSProperties}
+            >
+              <p className="font-serif italic text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }}>
+                {blockquote}
+              </p>
+            </blockquote>
+
+            <div
+              className="about-fade grid grid-cols-2 gap-3"
+              style={{ animationDelay: "0.7s" } as React.CSSProperties}
+            >
+              {statItems.map((item, i) => (
+                <div key={i} className="p-5 border" style={{ borderColor: "rgba(201,168,76,0.25)" }}>
+                  <p className="font-display font-black text-2xl" style={{ color: "var(--gold)" }}>{item.stat}</p>
+                  <p className="font-display text-xs tracking-widest uppercase mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>{item.sub}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ══════════════════════════════════════════════
+          MOBILE BLOCK 1: heading → image → blockquote+stats
+          ══════════════════════════════════════════════ */}
+      <div className="relative lg:hidden">
+
+        {/* Big heading */}
+        <div className="px-6 pt-16 pb-10">
           {headingLines.map((line, i) => (
             <span
               key={line._key}
               className={`about-word block leading-[0.88] ${
                 line.text.toLowerCase() === "exactly"
-                  ? "font-serif italic font-bold text-[clamp(3.5rem,7vw,8rem)]"
-                  : "font-display font-black text-[clamp(3.5rem,7vw,8rem)] uppercase"
+                  ? "font-serif italic font-bold text-[clamp(3.8rem,12vw,8rem)]"
+                  : "font-display font-black text-[clamp(3.8rem,12vw,8rem)] uppercase"
               }`}
               style={{
                 color: colorMap[line.color] || "#fff",
@@ -164,13 +194,24 @@ export default function AboutSection({
           ))}
         </div>
 
-        {/* Blockquote + stats side by side */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        {/* Pink suit image, portrait */}
+        <div className="relative w-full overflow-hidden" style={{ aspectRatio: "4/5" }}>
+          <Image
+            src="/images/kye-photo-hero.png"
+            alt="Kye Simmons"
+            fill
+            className="object-cover object-center"
+            sizes="100vw"
+          />
+        </div>
+
+        {/* Blockquote + stats below image */}
+        <div className="px-6 pt-10 pb-6">
           <blockquote
-            className="about-fade border-l-4 pl-5"
+            className="about-fade border-l-4 pl-5 mb-8"
             style={{ borderColor: "var(--pink)", animationDelay: "0.55s" } as React.CSSProperties}
           >
-            <p className="font-serif italic text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }}>
+            <p className="font-serif italic text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }}>
               {blockquote}
             </p>
           </blockquote>
@@ -179,17 +220,10 @@ export default function AboutSection({
             className="about-fade grid grid-cols-2 gap-3"
             style={{ animationDelay: "0.7s" } as React.CSSProperties}
           >
-            {[
-              { stat: "ELITE", sub: "SPORT BACKGROUND" },
-              { stat: "2×", sub: "HIGH-PERFORMANCE ARENAS" },
-            ].map((item, i) => (
-              <div key={i} className="p-5 border" style={{ borderColor: "rgba(201,168,76,0.25)" }}>
-                <p className="font-display font-black text-2xl" style={{ color: "var(--gold)" }}>
-                  {item.stat}
-                </p>
-                <p className="font-display text-xs tracking-widest uppercase mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>
-                  {item.sub}
-                </p>
+            {statItems.map((item, i) => (
+              <div key={i} className="p-4 border" style={{ borderColor: "rgba(201,168,76,0.25)" }}>
+                <p className="font-display font-black text-xl" style={{ color: "var(--gold)" }}>{item.stat}</p>
+                <p className="font-display text-xs tracking-widest uppercase mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>{item.sub}</p>
               </div>
             ))}
           </div>
@@ -201,7 +235,7 @@ export default function AboutSection({
         <div style={{ height: "1px", backgroundColor: "rgba(201,168,76,0.2)" }} />
       </div>
 
-      {/* ══ BLOCK 2: Body + items — black, contained ══ */}
+      {/* ══ BLOCK 2: Body + items — full width, black ══ */}
       <div className="relative max-w-7xl mx-auto px-6 py-16">
 
         <p
@@ -243,17 +277,11 @@ export default function AboutSection({
                   animationDelay: `${0.25 + index * 0.12}s`,
                 } as React.CSSProperties}
               >
-                <span
-                  className="font-display font-black text-2xl shrink-0 w-10"
-                  style={{ color: "var(--pink)", opacity: 0.5 }}
-                >
+                <span className="font-display font-black text-2xl shrink-0 w-10" style={{ color: "var(--pink)", opacity: 0.5 }}>
                   {item.number}
                 </span>
                 <div>
-                  <p
-                    className="font-display text-xs tracking-[0.2em] uppercase font-black mb-1"
-                    style={{ color: "var(--pink)" }}
-                  >
+                  <p className="font-display text-xs tracking-[0.2em] uppercase font-black mb-1" style={{ color: "var(--pink)" }}>
                     {item.label}
                   </p>
                   <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>

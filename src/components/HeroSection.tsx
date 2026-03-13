@@ -54,7 +54,7 @@ export default function HeroSection({
               {words.map((word, i) => (
                 <span
                   key={i}
-                  className="block text-[clamp(2rem,4.8vw,4.4rem)] uppercase animate-hero-word"
+                  className="block text-[clamp(2.8rem,4.8vw,4.4rem)] uppercase animate-hero-word"
                   style={{ animationDelay: `${i * 0.08}s` }}
                 >
                   {word}
