@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BLIND_SPOT_URL } from "@/lib/constants";
 
 interface AuditCTAProps {
   heading?: string;
@@ -13,8 +14,9 @@ export default function AuditCTA({
   subheading = "Aren't you tired of the Feast-or-Famine Cycle?",
   body = "This 2-minute audit reveals the invisible patterns quietly shaping your visibility, consistency, and income. You'll receive a personalised breakdown that shows what's actually running the loop, before more strategy is added.",
   ctaLabel = "> Show me my blind spot",
-  ctaUrl = "#audit",
+  ctaUrl,
 }: AuditCTAProps) {
+  const auditUrl = ctaUrl || BLIND_SPOT_URL;
   return (
     <section
       id="audit"
@@ -76,7 +78,7 @@ export default function AuditCTA({
             {body}
           </p>
           <Link
-            href={ctaUrl || "#"}
+            href={auditUrl}
             className="block w-full font-display text-base tracking-widest uppercase font-black px-8 py-5 text-center transition-opacity hover:opacity-90"
             style={{
               backgroundColor: "var(--pink)",

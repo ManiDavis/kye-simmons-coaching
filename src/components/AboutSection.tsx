@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import { BLIND_SPOT_URL } from "@/lib/constants";
 
 interface HeadingLine {
   _key: string;
@@ -65,8 +67,10 @@ export default function AboutSection({
     "Not because they lacked effort or intelligence. Because they had reached the edge of their identity. And no tactic in the world will take you past that edge. I've stood there myself. That's what makes this work different.",
   ],
   items = defaultItems,
-  auditCtaUrl = "#audit",
+  auditCtaUrl,
 }: AboutSectionProps) {
+  const auditUrl = auditCtaUrl || BLIND_SPOT_URL;
+
   return (
     <section
       id="about"
@@ -74,63 +78,76 @@ export default function AboutSection({
       style={{ backgroundColor: "var(--cream)" }}
     >
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-        {/* LEFT: big stacked type */}
-        <div style={{ backgroundColor: "var(--black)", padding: "3rem 2.5rem" }}>
-          {/* Small label */}
-          <p
-            className="font-display text-xs tracking-[0.25em] uppercase mb-6 flex items-center gap-3"
-            style={{ color: "var(--gold)" }}
-          >
-            <span className="block h-px w-8" style={{ backgroundColor: "var(--gold)" }} />
-            The Person Behind the Work
-          </p>
-
-          {/* Stacked heading */}
-          <div className="mb-8">
-            {headingLines.map((line) => (
-              <span
-                key={line._key}
-                className={`block font-display font-black leading-none uppercase ${
-                  line.text.toLowerCase() === "exactly"
-                    ? "italic font-normal text-[clamp(2.5rem,6vw,5rem)]"
-                    : "text-[clamp(2.5rem,6vw,5rem)]"
-                }`}
-                style={{ color: colorMap[line.color] || "#fff" }}
-              >
-                {line.text}
-              </span>
-            ))}
+        {/* LEFT: image + dark panel */}
+        <div>
+          {/* Kye image */}
+          <div className="relative w-full overflow-hidden" style={{ aspectRatio: "4/3" }}>
+            <Image
+              src="/images/kye-about.jpg"
+              alt="Kye Simmons"
+              fill
+              className="object-cover object-top"
+            />
           </div>
 
-          {/* Blockquote */}
-          <blockquote
-            className="border-l-4 pl-4 mb-8"
-            style={{ borderColor: "var(--pink)" }}
-          >
-            <p className="font-serif italic text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.85)" }}>
-              {blockquote}
+          {/* Dark panel */}
+          <div style={{ backgroundColor: "var(--black)", padding: "2.5rem" }}>
+            {/* Small label */}
+            <p
+              className="font-display text-xs tracking-[0.25em] uppercase mb-6 flex items-center gap-3"
+              style={{ color: "var(--gold)" }}
+            >
+              <span className="block h-px w-8" style={{ backgroundColor: "var(--gold)" }} />
+              The Person Behind the Work
             </p>
-          </blockquote>
 
-          {/* Stat boxes */}
-          <div className="grid grid-cols-2 gap-3">
-            {[
-              { stat: "ELITE", sub: "SPORT BACKGROUND" },
-              { stat: "2×", sub: "HIGH-PERFORMANCE ARENAS" },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="p-4 border"
-                style={{ borderColor: "rgba(201,168,76,0.3)" }}
-              >
-                <p className="font-display font-black text-2xl" style={{ color: "var(--gold)" }}>
-                  {item.stat}
-                </p>
-                <p className="font-display text-xs tracking-widest uppercase mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>
-                  {item.sub}
-                </p>
-              </div>
-            ))}
+            {/* Stacked heading */}
+            <div className="mb-8">
+              {headingLines.map((line) => (
+                <span
+                  key={line._key}
+                  className={`block leading-none uppercase ${
+                    line.text.toLowerCase() === "exactly"
+                      ? "font-script text-[clamp(3rem,7vw,6rem)]"
+                      : "font-display font-black text-[clamp(2.5rem,6vw,5rem)]"
+                  }`}
+                  style={{ color: colorMap[line.color] || "#fff" }}
+                >
+                  {line.text}
+                </span>
+              ))}
+            </div>
+
+            {/* Blockquote */}
+            <blockquote
+              className="border-l-4 pl-4 mb-8"
+              style={{ borderColor: "var(--pink)" }}
+            >
+              <p className="font-serif italic text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.85)" }}>
+                {blockquote}
+              </p>
+            </blockquote>
+
+            {/* Stat boxes */}
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { stat: "ELITE", sub: "SPORT BACKGROUND" },
+                { stat: "2×", sub: "HIGH-PERFORMANCE ARENAS" },
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  className="p-4 border"
+                  style={{ borderColor: "rgba(201,168,76,0.3)" }}
+                >
+                  <p className="font-display font-black text-2xl" style={{ color: "var(--gold)" }}>
+                    {item.stat}
+                  </p>
+                  <p className="font-display text-xs tracking-widest uppercase mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>
+                    {item.sub}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -179,7 +196,7 @@ export default function AboutSection({
           </div>
 
           <Link
-            href={auditCtaUrl || "#audit"}
+            href={auditUrl}
             className="mt-10 inline-block font-display text-sm tracking-widest uppercase font-black px-8 py-4 transition-opacity hover:opacity-90"
             style={{ backgroundColor: "var(--pink)", color: "#fff" }}
           >

@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { sanityFetch } from "@/sanity/lib/live";
 import { HOMEPAGE_QUERY } from "@/sanity/lib/queries";
+import { BLIND_SPOT_URL } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import PhotoHero from "@/components/PhotoHero";
@@ -24,7 +25,7 @@ export default async function HomePage() {
         heroAuditLabel={data?.heroAuditLabel ?? "★ FREE AUDIT — UNCOVER YOUR INVISIBLE FRICTION"}
         heroImage={data?.heroImage as never}
         heroBannerItems={data?.heroBannerItems ?? ["ELITE SPORT → BUSINESS", "PURPOSE-DRIVEN LEADERS", "IDENTITY-LED GROWTH"]}
-        auditCtaUrl={data?.auditCtaUrl ?? "#audit"}
+        auditCtaUrl={data?.auditCtaUrl ?? BLIND_SPOT_URL}
       />
 
       <PhotoHero
@@ -39,7 +40,7 @@ export default async function HomePage() {
         bodyIntro={data?.aboutBodyIntro}
         body={data?.aboutBody as never}
         items={data?.aboutItems as never}
-        auditCtaUrl={data?.auditCtaUrl ?? "#audit"}
+        auditCtaUrl={data?.auditCtaUrl ?? BLIND_SPOT_URL}
       />
 
       <ServicesSection services={data?.services as never} />

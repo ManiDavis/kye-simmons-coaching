@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { urlFor } from "@/sanity/lib/image";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { BLIND_SPOT_URL } from "@/lib/constants";
 
 interface Service {
   _key: string;
@@ -13,6 +14,13 @@ interface Service {
   image?: { asset: SanityImageSource & { url: string; metadata?: { lqip?: string } }; alt?: string };
 }
 
+const localServiceImages: Record<string, string> = {
+  s1: "/images/kye-about.jpg",
+  s2: "/images/kye-headshot.jpg",
+  s3: "/images/kye-hero.jpg",
+  s4: "/images/kye-photo-hero.jpg",
+};
+
 const defaultServices: Service[] = [
   {
     _key: "s1",
@@ -20,7 +28,7 @@ const defaultServices: Service[] = [
     tagline: "6-Week 1:1 Intensive",
     description: "Deep-dive identity and strategy work for coaches, creators and CEOs ready to operate at a higher level. Personalised, high-accountability, high-result.",
     ctaLabel: "Learn More",
-    ctaUrl: "#audit",
+    ctaUrl: BLIND_SPOT_URL,
   },
   {
     _key: "s2",
@@ -28,7 +36,7 @@ const defaultServices: Service[] = [
     tagline: "90-Minute Clarity Session",
     description: "One session. One blind spot exposed. Walk away with a precise diagnosis of the invisible friction keeping you stuck — and a clear action plan.",
     ctaLabel: "Book Now",
-    ctaUrl: "#audit",
+    ctaUrl: BLIND_SPOT_URL,
   },
   {
     _key: "s3",
@@ -36,7 +44,7 @@ const defaultServices: Service[] = [
     tagline: "30-Day Self-Paced Course",
     description: "The framework that underpins everything Kye does — available in a self-paced format. Identity recalibration meets real business strategy.",
     ctaLabel: "Enrol Now",
-    ctaUrl: "#audit",
+    ctaUrl: BLIND_SPOT_URL,
   },
   {
     _key: "s4",
@@ -44,7 +52,7 @@ const defaultServices: Service[] = [
     tagline: "Ongoing Peer Community",
     description: "A curated community of purpose-driven leaders doing the identity work. Accountability, collaboration, and a space to expand together.",
     ctaLabel: "Join Us",
-    ctaUrl: "#audit",
+    ctaUrl: BLIND_SPOT_URL,
   },
 ];
 
@@ -97,26 +105,17 @@ export default function ServicesSection({ services = defaultServices }: Services
               style={{ backgroundColor: "var(--cream)" }}
             >
               {/* Image */}
-              <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-200">
-                {service.image?.asset ? (
-                  <Image
-                    src={urlFor(service.image.asset).width(600).height(450).fit("crop").url()}
-                    alt={service.image.alt || service.title}
-                    fill
-                    className="object-cover"
-                    placeholder={service.image.asset?.metadata?.lqip ? "blur" : "empty"}
-                    blurDataURL={service.image.asset?.metadata?.lqip}
-                  />
-                ) : (
-                  <div
-                    className="w-full h-full flex items-center justify-center"
-                    style={{ backgroundColor: "#e0d4c8" }}
-                  >
-                    <span className="font-display font-black text-4xl" style={{ color: "var(--pink)", opacity: 0.3 }}>
-                      KS
-                    </span>
-                  </div>
-                )}
+              <div className="relative w-full aspect-[4/3] overflow-hidden">
+                <Image
+                  src={service.image?.asset
+                    ? urlFor(service.image.asset).width(600).height(450).fit("crop").url()
+                    : (localServiceImages[service._key] || "/images/kye-headshot.jpg")}
+                  alt={service.image?.alt || service.title}
+                  fill
+                  className="object-cover object-top"
+                  placeholder={service.image?.asset?.metadata?.lqip ? "blur" : "empty"}
+                  blurDataURL={service.image?.asset?.metadata?.lqip}
+                />
               </div>
 
               {/* Content */}
@@ -138,7 +137,7 @@ export default function ServicesSection({ services = defaultServices }: Services
                   </p>
                 )}
                 <Link
-                  href={service.ctaUrl || "#audit"}
+                  href={service.ctaUrl || BLIND_SPOT_URL}
                   className="font-display text-xs tracking-widest uppercase font-black px-5 py-3 text-center transition-opacity hover:opacity-90 mt-auto"
                   style={{ backgroundColor: "var(--black)", color: "#fff" }}
                 >

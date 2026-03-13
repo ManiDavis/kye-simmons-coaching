@@ -3,6 +3,7 @@ import Link from "next/link";
 import { urlFor } from "@/sanity/lib/image";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import MarqueeTicker from "./MarqueeTicker";
+import { BLIND_SPOT_URL } from "@/lib/constants";
 
 interface HeroSectionProps {
   heroStatement: string;
@@ -19,9 +20,16 @@ export default function HeroSection({
   heroAuditLabel,
   heroImage,
   heroBannerItems = [],
-  auditCtaUrl = "#audit",
+  auditCtaUrl,
 }: HeroSectionProps) {
   const words = heroStatement ? heroStatement.split(" ") : ["YOUR IDENTITY IS THE STRATEGY."];
+  const auditUrl = auditCtaUrl || BLIND_SPOT_URL;
+
+  const kyeImageSrc = heroImage?.asset
+    ? urlFor(heroImage.asset).width(900).height(1100).fit("crop").url()
+    : "/images/kye-hero.jpg";
+
+  const kyeImageAlt = heroImage?.alt || "Kye Simmons";
 
   return (
     <section
@@ -29,23 +37,23 @@ export default function HeroSection({
       className="relative overflow-hidden"
       style={{ backgroundColor: "var(--cream)", paddingTop: "64px" }}
     >
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-0 min-h-[90vh] items-center">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-0 lg:min-h-[90vh] lg:items-center">
         {/* Left content */}
-        <div className="py-20 lg:py-24 relative z-10">
+        <div className="py-14 lg:py-24 relative z-10">
           {/* Giant stacked display type */}
           <h1 className="font-display font-black leading-none mb-8" style={{ color: "var(--pink)" }}>
             {words.map((word, i) => (
-              <span key={i} className="block text-[clamp(4rem,11vw,9rem)] uppercase">
+              <span key={i} className="block text-[clamp(3.5rem,10vw,9rem)] uppercase">
                 {word}
               </span>
             ))}
           </h1>
 
-          {/* Subtext */}
+          {/* Subtext — Cormorant Garamond italic for editorial elegance */}
           {heroSubtext && (
             <p
-              className="text-base lg:text-lg leading-relaxed mb-8 max-w-md font-light"
-              style={{ color: "var(--mid-grey)" }}
+              className="font-serif italic text-lg lg:text-xl leading-relaxed mb-8 max-w-md"
+              style={{ color: "var(--mid-grey)", textWrap: "pretty" } as React.CSSProperties}
             >
               {heroSubtext}
             </p>
@@ -54,7 +62,7 @@ export default function HeroSection({
           {/* CTAs */}
           <div className="flex flex-wrap items-center gap-4 mb-4">
             <Link
-              href={auditCtaUrl || "#audit"}
+              href={auditUrl}
               className="font-display text-sm tracking-widest uppercase font-black px-8 py-4 transition-opacity hover:opacity-90 inline-block"
               style={{ backgroundColor: "var(--pink)", color: "#fff" }}
             >
@@ -77,34 +85,42 @@ export default function HeroSection({
           )}
         </div>
 
-        {/* Right: Kye's photo */}
+        {/* Mobile image — full width, shown only on mobile */}
+        <div className="block lg:hidden relative w-full overflow-hidden" style={{ aspectRatio: "3/4" }}>
+          <Image
+            src={kyeImageSrc}
+            alt={kyeImageAlt}
+            fill
+            className="object-cover object-top"
+            priority
+            placeholder={heroImage?.asset?.metadata?.lqip ? "blur" : "empty"}
+            blurDataURL={heroImage?.asset?.metadata?.lqip}
+          />
+          {/* Name tag overlay */}
+          <div
+            className="absolute bottom-0 left-0 px-5 py-3"
+            style={{ backgroundColor: "var(--black)" }}
+          >
+            <p className="font-display font-black text-base tracking-widest uppercase" style={{ color: "#fff" }}>
+              KYE SIMMONS
+            </p>
+            <p className="font-display text-xs tracking-widest uppercase" style={{ color: "var(--gold)" }}>
+              Identity + Expansion Strategist
+            </p>
+          </div>
+        </div>
+
+        {/* Desktop image — right panel, hidden on mobile */}
         <div className="relative hidden lg:block h-full min-h-[90vh]">
-          {heroImage?.asset ? (
-            <Image
-              src={urlFor(heroImage.asset).width(900).height(1100).fit("crop").url()}
-              alt={heroImage.alt || "Kye Simmons"}
-              fill
-              className="object-cover object-top"
-              priority
-              placeholder={heroImage.asset?.metadata?.lqip ? "blur" : "empty"}
-              blurDataURL={heroImage.asset?.metadata?.lqip}
-            />
-          ) : (
-            /* Placeholder when no image uploaded */
-            <div
-              className="w-full h-full flex flex-col items-center justify-center"
-              style={{ backgroundColor: "#e0d8ce" }}
-            >
-              <div
-                className="w-48 h-48 rounded-full flex items-center justify-center mb-4"
-                style={{ backgroundColor: "var(--pink)", opacity: 0.15 }}
-              />
-              <div className="text-center" style={{ color: "var(--mid-grey)" }}>
-                <p className="font-display font-black text-2xl tracking-widest uppercase">KYE SIMMONS</p>
-                <p className="font-display text-sm tracking-widest uppercase">Identity + Expansion Strategist</p>
-              </div>
-            </div>
-          )}
+          <Image
+            src={kyeImageSrc}
+            alt={kyeImageAlt}
+            fill
+            className="object-cover object-top"
+            priority
+            placeholder={heroImage?.asset?.metadata?.lqip ? "blur" : "empty"}
+            blurDataURL={heroImage?.asset?.metadata?.lqip}
+          />
           {/* Name tag overlay */}
           <div
             className="absolute bottom-10 left-0 px-6 py-4"
