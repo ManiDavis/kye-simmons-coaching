@@ -85,7 +85,7 @@ export default function AboutSection({
           observer.disconnect();
         }
       },
-      { threshold: 0.12 }
+      { threshold: 0.1 }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -94,103 +94,118 @@ export default function AboutSection({
   return (
     <section ref={sectionRef} id="about" style={{ backgroundColor: "var(--black)" }}>
 
-      {/* ══ BLOCK 1: Full-bleed image + heading ══ */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch">
+      {/* Subtle gold diagonal texture across whole section */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.025]"
+        style={{
+          backgroundImage: `repeating-linear-gradient(45deg, var(--gold) 0px, var(--gold) 1px, transparent 1px, transparent 16px)`,
+        }}
+      />
 
-        {/* Image — full bleed, no padding */}
-        <div className="relative overflow-hidden aspect-[4/3] lg:aspect-auto" style={{ minHeight: "520px" }}>
-          <Image
-            src="/images/kye-about.jpg"
-            alt="Kye Simmons"
-            fill
-            className="object-cover object-top"
-            sizes="(max-width: 1024px) 100vw, 50vw"
-          />
+      {/* ══ BLOCK 1: Profile intro + big heading ══ */}
+      <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-14">
+
+        {/* Circular profile pic + label row */}
+        <div
+          className="about-fade flex items-center gap-6 mb-14"
+          style={{ animationDelay: "0s" } as React.CSSProperties}
+        >
+          <div
+            className="relative shrink-0 rounded-full overflow-hidden"
+            style={{
+              width: 130,
+              height: 130,
+              border: "2px solid rgba(201,168,76,0.45)",
+              boxShadow: "0 0 0 6px rgba(201,168,76,0.08)",
+            }}
+          >
+            <Image
+              src="/images/kye-about.jpg"
+              alt="Kye Simmons"
+              fill
+              className="object-cover object-top"
+              sizes="130px"
+            />
+          </div>
+          <div>
+            <p
+              className="font-display font-black text-base tracking-widest uppercase mb-1"
+              style={{ color: "#fff" }}
+            >
+              Kye Simmons
+            </p>
+            <p
+              className="font-display text-xs tracking-[0.3em] uppercase flex items-center gap-3"
+              style={{ color: "var(--gold)" }}
+            >
+              <span className="block h-px w-8 shrink-0" style={{ backgroundColor: "var(--gold)" }} />
+              The Person Behind the Work
+            </p>
+          </div>
         </div>
 
-        {/* Heading panel — right side */}
-        <div
-          className="relative flex flex-col justify-between px-10 lg:px-16 py-14 overflow-hidden"
-          style={{ backgroundColor: "var(--black)" }}
-        >
-          {/* Subtle gold diagonal texture */}
-          <div
-            className="absolute inset-0 pointer-events-none opacity-[0.04]"
-            style={{
-              backgroundImage: `repeating-linear-gradient(45deg, var(--gold) 0px, var(--gold) 1px, transparent 1px, transparent 14px)`,
-            }}
-          />
-
-          <div className="relative z-10">
-            {/* Label */}
-            <p
-              className="about-fade font-display text-xs tracking-[0.3em] uppercase mb-10 flex items-center gap-3"
-              style={{ color: "var(--gold)", animationDelay: "0s" } as React.CSSProperties}
+        {/* BIG heading — full section width, much bolder now */}
+        <div className="mb-14">
+          {headingLines.map((line, i) => (
+            <span
+              key={line._key}
+              className={`about-word block leading-[0.88] ${
+                line.text.toLowerCase() === "exactly"
+                  ? "font-serif italic font-bold text-[clamp(3.5rem,7vw,8rem)]"
+                  : "font-display font-black text-[clamp(3.5rem,7vw,8rem)] uppercase"
+              }`}
+              style={{
+                color: colorMap[line.color] || "#fff",
+                animationDelay: `${i * 0.1}s`,
+              } as React.CSSProperties}
             >
-              <span className="block h-px w-10 shrink-0" style={{ backgroundColor: "var(--gold)" }} />
-              Kye Simmons — The Person Behind the Work
+              {line.text}
+            </span>
+          ))}
+        </div>
+
+        {/* Blockquote + stats side by side */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          <blockquote
+            className="about-fade border-l-4 pl-5"
+            style={{ borderColor: "var(--pink)", animationDelay: "0.55s" } as React.CSSProperties}
+          >
+            <p className="font-serif italic text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }}>
+              {blockquote}
             </p>
+          </blockquote>
 
-            {/* Heading — big, stacked, staggered */}
-            <div className="mb-10">
-              {headingLines.map((line, i) => (
-                <span
-                  key={line._key}
-                  className={`about-word block leading-[0.9] ${
-                    line.text.toLowerCase() === "exactly"
-                      ? "font-serif italic font-bold text-[clamp(3rem,5.5vw,5.5rem)]"
-                      : "font-display font-black text-[clamp(3rem,5.5vw,5.5rem)] uppercase"
-                  }`}
-                  style={{ color: colorMap[line.color] || "#fff", animationDelay: `${i * 0.1}s` } as React.CSSProperties}
-                >
-                  {line.text}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="relative z-10">
-            {/* Blockquote */}
-            <blockquote
-              className="about-fade border-l-4 pl-5 mb-8"
-              style={{ borderColor: "var(--pink)", animationDelay: "0.55s" } as React.CSSProperties}
-            >
-              <p className="font-serif italic text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }}>
-                {blockquote}
-              </p>
-            </blockquote>
-
-            {/* Stats */}
-            <div
-              className="about-fade grid grid-cols-2 gap-3"
-              style={{ animationDelay: "0.7s" } as React.CSSProperties}
-            >
-              {[
-                { stat: "ELITE", sub: "SPORT BACKGROUND" },
-                { stat: "2×", sub: "HIGH-PERFORMANCE ARENAS" },
-              ].map((item, i) => (
-                <div key={i} className="p-4 border" style={{ borderColor: "rgba(201,168,76,0.25)" }}>
-                  <p className="font-display font-black text-xl" style={{ color: "var(--gold)" }}>
-                    {item.stat}
-                  </p>
-                  <p className="font-display text-xs tracking-widest uppercase mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>
-                    {item.sub}
-                  </p>
-                </div>
-              ))}
-            </div>
+          <div
+            className="about-fade grid grid-cols-2 gap-3"
+            style={{ animationDelay: "0.7s" } as React.CSSProperties}
+          >
+            {[
+              { stat: "ELITE", sub: "SPORT BACKGROUND" },
+              { stat: "2×", sub: "HIGH-PERFORMANCE ARENAS" },
+            ].map((item, i) => (
+              <div key={i} className="p-5 border" style={{ borderColor: "rgba(201,168,76,0.25)" }}>
+                <p className="font-display font-black text-2xl" style={{ color: "var(--gold)" }}>
+                  {item.stat}
+                </p>
+                <p className="font-display text-xs tracking-widest uppercase mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>
+                  {item.sub}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       {/* Gold divider */}
-      <div style={{ height: "1px", backgroundColor: "rgba(201,168,76,0.2)" }} />
+      <div className="max-w-7xl mx-auto px-6">
+        <div style={{ height: "1px", backgroundColor: "rgba(201,168,76,0.2)" }} />
+      </div>
 
-      {/* ══ BLOCK 2: Body + items — contained, all on black ══ */}
-      <div className="max-w-7xl mx-auto px-6 py-16">
+      {/* ══ BLOCK 2: Body + items — black, contained ══ */}
+      <div className="relative max-w-7xl mx-auto px-6 py-16">
 
         <p
-          className="about-fade font-display text-xs tracking-[0.3em] uppercase font-semibold mb-12 text-center"
+          className="about-fade font-display text-xs tracking-[0.3em] uppercase font-semibold mb-10 text-center"
           style={{ color: "var(--gold)", animationDelay: "0.1s" } as React.CSSProperties}
         >
           I'm Kye Simmons
@@ -251,7 +266,7 @@ export default function AboutSection({
 
         </div>
 
-        {/* CTAs — centred below both columns */}
+        {/* CTAs — centred */}
         <div className="mt-14 flex flex-wrap justify-center items-center gap-5">
           <Link
             href={auditUrl}
