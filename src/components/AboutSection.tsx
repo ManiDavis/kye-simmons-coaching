@@ -106,10 +106,10 @@ export default function AboutSection({
               {headingLines.map((line) => (
                 <span
                   key={line._key}
-                  className={`block leading-none uppercase ${
+                  className={`block leading-none ${
                     line.text.toLowerCase() === "exactly"
-                      ? "font-script text-[clamp(3rem,7vw,6rem)]"
-                      : "font-display font-black text-[clamp(2.5rem,6vw,5rem)]"
+                      ? "font-serif italic font-bold text-[clamp(2.5rem,6vw,5rem)]"
+                      : "font-display font-black text-[clamp(2.5rem,6vw,5rem)] uppercase"
                   }`}
                   style={{ color: colorMap[line.color] || "#fff" }}
                 >

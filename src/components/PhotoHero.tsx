@@ -9,25 +9,42 @@ interface PhotoHeroProps {
 }
 
 export default function PhotoHero({ title, subtitle, image }: PhotoHeroProps) {
-  const imageSrc = image?.asset
+  // Desktop: headshot (crops well as landscape, no baked-in text)
+  // Mobile: pink suit (portrait, dramatic full-bleed)
+  const desktopSrc = image?.asset
     ? urlFor(image.asset).width(1600).height(900).fit("crop").url()
+    : "/images/kye-headshot.jpg";
+  const mobileSrc = image?.asset
+    ? urlFor(image.asset).width(900).height(1100).fit("crop").url()
     : "/images/kye-photo-hero.jpg";
 
   return (
     <section className="relative w-full min-h-[70vh] flex items-end overflow-hidden">
-      {/* Background photo */}
+      {/* Desktop background — headshot, landscape crop */}
       <Image
-        src={imageSrc}
+        src={desktopSrc}
         alt={image?.alt || "Kye Simmons"}
         fill
-        className="object-cover object-center"
+        className="object-cover object-top hidden md:block"
         priority
+        sizes="100vw"
+        placeholder={image?.asset?.metadata?.lqip ? "blur" : "empty"}
+        blurDataURL={image?.asset?.metadata?.lqip}
+      />
+      {/* Mobile background — pink suit portrait */}
+      <Image
+        src={mobileSrc}
+        alt={image?.alt || "Kye Simmons"}
+        fill
+        className="object-cover object-center block md:hidden"
+        priority
+        sizes="100vw"
         placeholder={image?.asset?.metadata?.lqip ? "blur" : "empty"}
         blurDataURL={image?.asset?.metadata?.lqip}
       />
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.78) 45%, rgba(0,0,0,0.3) 100%)" }} />
+      {/* Dark overlay — dark at bottom (text), fades to transparent at top */}
+      <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.1) 100%)" }} />
 
       {/* Text content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 pb-16 pt-24 w-full">

@@ -91,6 +91,7 @@ export default function HeroSection({
             src={kyeImageSrc}
             alt={kyeImageAlt}
             fill
+            sizes="100vw"
             className="object-cover object-top"
             priority
             placeholder={heroImage?.asset?.metadata?.lqip ? "blur" : "empty"}
@@ -116,6 +117,7 @@ export default function HeroSection({
             src={kyeImageSrc}
             alt={kyeImageAlt}
             fill
+            sizes="50vw"
             className="object-cover object-top"
             priority
             placeholder={heroImage?.asset?.metadata?.lqip ? "blur" : "empty"}
