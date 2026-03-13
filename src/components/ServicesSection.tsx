@@ -17,8 +17,8 @@ interface Service {
 const localServiceImages: Record<string, string> = {
   s1: "/images/kye-about.jpg",
   s2: "/images/kye-headshot.jpg",
-  s3: "/images/kye-hero.jpg",
-  s4: "/images/kye-photo-hero.jpg",
+  s3: "/images/kye-hero.png",
+  s4: "/images/kye-photo-hero.png",
 };
 
 const defaultServices: Service[] = [

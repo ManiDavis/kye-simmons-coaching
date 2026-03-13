@@ -27,7 +27,7 @@ export default function HeroSection({
 
   const kyeImageSrc = heroImage?.asset
     ? urlFor(heroImage.asset).width(900).height(1100).fit("crop").url()
-    : "/images/kye-hero.jpg";
+    : "/images/kye-hero.png";
 
   const kyeImageAlt = heroImage?.alt || "Kye Simmons";
 

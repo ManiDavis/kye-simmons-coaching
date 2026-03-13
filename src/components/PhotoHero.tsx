@@ -16,7 +16,7 @@ export default function PhotoHero({ title, subtitle, image }: PhotoHeroProps) {
     : "/images/kye-headshot.jpg";
   const mobileSrc = image?.asset
     ? urlFor(image.asset).width(900).height(1100).fit("crop").url()
-    : "/images/kye-photo-hero.jpg";
+    : "/images/kye-photo-hero.png";
 
   return (
     <section className="relative w-full min-h-[70vh] flex items-end overflow-hidden">
