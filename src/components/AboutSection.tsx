@@ -72,145 +72,154 @@ export default function AboutSection({
   const auditUrl = auditCtaUrl || BLIND_SPOT_URL;
 
   return (
-    <section id="about" className="relative" style={{ backgroundColor: "var(--cream)" }}>
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-start">
+    <section id="about" className="py-24" style={{ backgroundColor: "var(--cream)" }}>
+      <div className="max-w-7xl mx-auto px-6">
 
-        {/* ── LEFT: image — fills viewport height, sticky on desktop ── */}
-        <div className="relative lg:sticky lg:top-0 lg:h-screen overflow-hidden" style={{ aspectRatio: "4/3" }}>
-          <Image
-            src="/images/kye-about.jpg"
-            alt="Kye Simmons"
-            fill
-            className="object-cover object-top"
-            sizes="(max-width: 1024px) 100vw, 50vw"
-          />
-        </div>
+        {/* Mobile: image on top; Desktop: two columns, image left */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch">
 
-        {/* ── RIGHT: all content flows in reading order ── */}
-        <div>
-
-          {/* 2. Label + 3. Heading + 4. Blockquote + Stats — dark panel */}
-          <div style={{ backgroundColor: "var(--black)", padding: "2.5rem 2.5rem 3rem" }}>
-
-            {/* Label: "Kye Simmons — The Person Behind the Work" */}
-            <p
-              className="font-display text-xs tracking-[0.25em] uppercase mb-8 flex items-center gap-3"
-              style={{ color: "var(--gold)" }}
-            >
-              <span className="block h-px w-8 shrink-0" style={{ backgroundColor: "var(--gold)" }} />
-              Kye Simmons — The Person Behind the Work
-            </p>
-
-            {/* Heading */}
-            <div className="mb-8">
-              {headingLines.map((line) => (
-                <span
-                  key={line._key}
-                  className={`block leading-none ${
-                    line.text.toLowerCase() === "exactly"
-                      ? "font-serif italic font-bold text-[clamp(2.5rem,5vw,4.5rem)]"
-                      : "font-display font-black text-[clamp(2.5rem,5vw,4.5rem)] uppercase"
-                  }`}
-                  style={{ color: colorMap[line.color] || "#fff" }}
-                >
-                  {line.text}
-                </span>
-              ))}
-            </div>
-
-            {/* Blockquote */}
-            <blockquote className="border-l-4 pl-4 mb-8" style={{ borderColor: "var(--pink)" }}>
-              <p className="font-serif italic text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.85)" }}>
-                {blockquote}
-              </p>
-            </blockquote>
-
-            {/* Stat boxes */}
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                { stat: "ELITE", sub: "SPORT BACKGROUND" },
-                { stat: "2×", sub: "HIGH-PERFORMANCE ARENAS" },
-              ].map((item, i) => (
-                <div key={i} className="p-4 border" style={{ borderColor: "rgba(201,168,76,0.3)" }}>
-                  <p className="font-display font-black text-2xl" style={{ color: "var(--gold)" }}>
-                    {item.stat}
-                  </p>
-                  <p className="font-display text-xs tracking-widest uppercase mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>
-                    {item.sub}
-                  </p>
-                </div>
-              ))}
-            </div>
+          {/* ── LEFT: image only — decorative, matches right column height ── */}
+          <div className="relative hidden lg:block min-h-[500px]">
+            <Image
+              src="/images/kye-about.jpg"
+              alt="Kye Simmons"
+              fill
+              className="object-cover object-top"
+              sizes="50vw"
+            />
           </div>
 
-          {/* 5. Body copy → numbered items → CTAs — light panel */}
-          <div className="px-10 py-12" style={{ backgroundColor: "var(--cream)" }}>
+          {/* Mobile image — stacks on top */}
+          <div className="relative w-full overflow-hidden lg:hidden" style={{ aspectRatio: "4/3" }}>
+            <Image
+              src="/images/kye-about.jpg"
+              alt="Kye Simmons"
+              fill
+              className="object-cover object-top"
+              sizes="100vw"
+            />
+          </div>
 
-            <p
-              className="font-display text-xs tracking-[0.25em] uppercase font-semibold mb-6"
-              style={{ color: "var(--pink)" }}
-            >
-              I'm Kye Simmons
-            </p>
+          {/* ── RIGHT: all content in reading order ── */}
+          <div className="flex flex-col">
 
-            <p className="text-base leading-relaxed font-semibold mb-4" style={{ color: "var(--dark-grey)" }}>
-              <strong>I'm Kye</strong> — {bodyIntro}
-            </p>
+            {/* Dark panel: label → heading → blockquote → stats */}
+            <div className="flex-none" style={{ backgroundColor: "var(--black)", padding: "2.5rem 2.5rem 3rem" }}>
 
-            {body.map((para, i) => (
-              <p key={i} className="text-base leading-relaxed mb-4" style={{ color: "var(--dark-grey)" }}>
-                {para}
+              {/* 2. Label */}
+              <p
+                className="font-display text-xs tracking-[0.25em] uppercase mb-8 flex items-center gap-3"
+                style={{ color: "var(--gold)" }}
+              >
+                <span className="block h-px w-8 shrink-0" style={{ backgroundColor: "var(--gold)" }} />
+                Kye Simmons — The Person Behind the Work
               </p>
-            ))}
 
-            {/* Numbered items with dividers */}
-            <div className="mt-10">
-              {items.map((item, index) => (
-                <div
-                  key={item._key}
-                  className="flex gap-4 py-6"
-                  style={index > 0 ? { borderTop: "1px solid rgba(0,0,0,0.12)" } : undefined}
-                >
+              {/* 3. Heading */}
+              <div className="mb-8">
+                {headingLines.map((line) => (
                   <span
-                    className="font-display font-black text-2xl shrink-0 w-10"
-                    style={{ color: "var(--pink)", opacity: 0.4 }}
+                    key={line._key}
+                    className={`block leading-none ${
+                      line.text.toLowerCase() === "exactly"
+                        ? "font-serif italic font-bold text-[clamp(2.5rem,4.5vw,4.5rem)]"
+                        : "font-display font-black text-[clamp(2.5rem,4.5vw,4.5rem)] uppercase"
+                    }`}
+                    style={{ color: colorMap[line.color] || "#fff" }}
                   >
-                    {item.number}
+                    {line.text}
                   </span>
-                  <div>
-                    <p
-                      className="font-display text-xs tracking-[0.2em] uppercase font-black mb-2"
-                      style={{ color: "var(--pink)" }}
-                    >
-                      {item.label}
+                ))}
+              </div>
+
+              {/* 4a. Blockquote */}
+              <blockquote className="border-l-4 pl-4 mb-8" style={{ borderColor: "var(--pink)" }}>
+                <p className="font-serif italic text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.85)" }}>
+                  {blockquote}
+                </p>
+              </blockquote>
+
+              {/* 4b. Stat boxes */}
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { stat: "ELITE", sub: "SPORT BACKGROUND" },
+                  { stat: "2×", sub: "HIGH-PERFORMANCE ARENAS" },
+                ].map((item, i) => (
+                  <div key={i} className="p-4 border" style={{ borderColor: "rgba(201,168,76,0.3)" }}>
+                    <p className="font-display font-black text-2xl" style={{ color: "var(--gold)" }}>
+                      {item.stat}
                     </p>
-                    <p className="text-sm leading-relaxed" style={{ color: "var(--dark-grey)" }}>
-                      {item.body}
+                    <p className="font-display text-xs tracking-widest uppercase mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>
+                      {item.sub}
                     </p>
                   </div>
-                </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 5. Body copy + numbered items + CTAs — cream panel */}
+            <div className="flex-1 px-10 py-10" style={{ backgroundColor: "var(--cream)" }}>
+
+              <p className="font-display text-xs tracking-[0.25em] uppercase font-semibold mb-5" style={{ color: "var(--pink)" }}>
+                I'm Kye Simmons
+              </p>
+
+              <p className="text-base leading-relaxed font-semibold mb-4" style={{ color: "var(--dark-grey)" }}>
+                <strong>I'm Kye</strong> — {bodyIntro}
+              </p>
+
+              {body.map((para, i) => (
+                <p key={i} className="text-base leading-relaxed mb-4" style={{ color: "var(--dark-grey)" }}>
+                  {para}
+                </p>
               ))}
+
+              {/* Numbered items */}
+              <div className="mt-8">
+                {items.map((item, index) => (
+                  <div
+                    key={item._key}
+                    className="flex gap-4 py-5"
+                    style={index > 0 ? { borderTop: "1px solid rgba(0,0,0,0.12)" } : undefined}
+                  >
+                    <span
+                      className="font-display font-black text-2xl shrink-0 w-10"
+                      style={{ color: "var(--pink)", opacity: 0.4 }}
+                    >
+                      {item.number}
+                    </span>
+                    <div>
+                      <p className="font-display text-xs tracking-[0.2em] uppercase font-black mb-1" style={{ color: "var(--pink)" }}>
+                        {item.label}
+                      </p>
+                      <p className="text-sm leading-relaxed" style={{ color: "var(--dark-grey)" }}>
+                        {item.body}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTAs */}
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <Link
+                  href={auditUrl}
+                  className="font-display text-sm tracking-widest uppercase font-black px-8 py-4 transition-opacity hover:opacity-90 inline-block"
+                  style={{ backgroundColor: "var(--pink)", color: "#fff" }}
+                >
+                  Take the Blind Spot Audit →
+                </Link>
+                <Link
+                  href="#services"
+                  className="font-display text-sm tracking-widest uppercase font-semibold border-b-2 pb-0.5 transition-opacity hover:opacity-60"
+                  style={{ color: "var(--black)", borderColor: "var(--black)" }}
+                >
+                  See How It Works
+                </Link>
+              </div>
             </div>
 
-            {/* CTAs */}
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <Link
-                href={auditUrl}
-                className="font-display text-sm tracking-widest uppercase font-black px-8 py-4 transition-opacity hover:opacity-90 inline-block"
-                style={{ backgroundColor: "var(--pink)", color: "#fff" }}
-              >
-                Take the Blind Spot Audit →
-              </Link>
-              <Link
-                href="#services"
-                className="font-display text-sm tracking-widest uppercase font-semibold border-b-2 pb-0.5 transition-opacity hover:opacity-60"
-                style={{ color: "var(--black)", borderColor: "var(--black)" }}
-              >
-                See How It Works
-              </Link>
-            </div>
           </div>
-
         </div>
       </div>
     </section>
