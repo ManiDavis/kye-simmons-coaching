@@ -75,38 +75,27 @@ export default function AboutSection({
     <section id="about" className="py-24" style={{ backgroundColor: "var(--cream)" }}>
       <div className="max-w-7xl mx-auto px-6">
 
-        {/* Mobile: image on top; Desktop: two columns, image left */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch">
+        {/* ── BLOCK 1: Image + Dark panel — contained, equal height ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch mb-12">
 
-          {/* ── LEFT: image only — decorative, matches right column height ── */}
-          <div className="relative hidden lg:block min-h-[500px]">
+          {/* Image — stretches to match dark panel height */}
+          <div className="relative overflow-hidden" style={{ minHeight: "420px" }}>
             <Image
               src="/images/kye-about.jpg"
               alt="Kye Simmons"
               fill
               className="object-cover object-top"
-              sizes="50vw"
+              sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </div>
 
-          {/* Mobile image — stacks on top */}
-          <div className="relative w-full overflow-hidden lg:hidden" style={{ aspectRatio: "4/3" }}>
-            <Image
-              src="/images/kye-about.jpg"
-              alt="Kye Simmons"
-              fill
-              className="object-cover object-top"
-              sizes="100vw"
-            />
-          </div>
-
-          {/* ── RIGHT: all content in reading order ── */}
-          <div className="flex flex-col">
-
-            {/* Dark panel: label → heading → blockquote → stats */}
-            <div className="flex-none" style={{ backgroundColor: "var(--black)", padding: "2.5rem 2.5rem 3rem" }}>
-
-              {/* 2. Label */}
+          {/* Dark panel — label → heading → blockquote → stats */}
+          <div
+            className="flex flex-col justify-between"
+            style={{ backgroundColor: "var(--black)", padding: "2.5rem" }}
+          >
+            <div>
+              {/* Label */}
               <p
                 className="font-display text-xs tracking-[0.25em] uppercase mb-8 flex items-center gap-3"
                 style={{ color: "var(--gold)" }}
@@ -115,15 +104,15 @@ export default function AboutSection({
                 Kye Simmons — The Person Behind the Work
               </p>
 
-              {/* 3. Heading */}
+              {/* Heading */}
               <div className="mb-8">
                 {headingLines.map((line) => (
                   <span
                     key={line._key}
                     className={`block leading-none ${
                       line.text.toLowerCase() === "exactly"
-                        ? "font-serif italic font-bold text-[clamp(2.5rem,4.5vw,4.5rem)]"
-                        : "font-display font-black text-[clamp(2.5rem,4.5vw,4.5rem)] uppercase"
+                        ? "font-serif italic font-bold text-[clamp(2.2rem,4vw,4rem)]"
+                        : "font-display font-black text-[clamp(2.2rem,4vw,4rem)] uppercase"
                     }`}
                     style={{ color: colorMap[line.color] || "#fff" }}
                   >
@@ -131,22 +120,24 @@ export default function AboutSection({
                   </span>
                 ))}
               </div>
+            </div>
 
-              {/* 4a. Blockquote */}
-              <blockquote className="border-l-4 pl-4 mb-8" style={{ borderColor: "var(--pink)" }}>
-                <p className="font-serif italic text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.85)" }}>
+            <div>
+              {/* Blockquote */}
+              <blockquote className="border-l-4 pl-4 mb-6" style={{ borderColor: "var(--pink)" }}>
+                <p className="font-serif italic text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.85)" }}>
                   {blockquote}
                 </p>
               </blockquote>
 
-              {/* 4b. Stat boxes */}
+              {/* Stat boxes */}
               <div className="grid grid-cols-2 gap-3">
                 {[
                   { stat: "ELITE", sub: "SPORT BACKGROUND" },
                   { stat: "2×", sub: "HIGH-PERFORMANCE ARENAS" },
                 ].map((item, i) => (
                   <div key={i} className="p-4 border" style={{ borderColor: "rgba(201,168,76,0.3)" }}>
-                    <p className="font-display font-black text-2xl" style={{ color: "var(--gold)" }}>
+                    <p className="font-display font-black text-xl" style={{ color: "var(--gold)" }}>
                       {item.stat}
                     </p>
                     <p className="font-display text-xs tracking-widest uppercase mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>
@@ -156,70 +147,77 @@ export default function AboutSection({
                 ))}
               </div>
             </div>
-
-            {/* 5. Body copy + numbered items + CTAs — cream panel */}
-            <div className="flex-1 px-10 py-10" style={{ backgroundColor: "var(--cream)" }}>
-
-              <p className="font-display text-xs tracking-[0.25em] uppercase font-semibold mb-5" style={{ color: "var(--pink)" }}>
-                I'm Kye Simmons
-              </p>
-
-              <p className="text-base leading-relaxed font-semibold mb-4" style={{ color: "var(--dark-grey)" }}>
-                <strong>I'm Kye</strong> — {bodyIntro}
-              </p>
-
-              {body.map((para, i) => (
-                <p key={i} className="text-base leading-relaxed mb-4" style={{ color: "var(--dark-grey)" }}>
-                  {para}
-                </p>
-              ))}
-
-              {/* Numbered items */}
-              <div className="mt-8">
-                {items.map((item, index) => (
-                  <div
-                    key={item._key}
-                    className="flex gap-4 py-5"
-                    style={index > 0 ? { borderTop: "1px solid rgba(0,0,0,0.12)" } : undefined}
-                  >
-                    <span
-                      className="font-display font-black text-2xl shrink-0 w-10"
-                      style={{ color: "var(--pink)", opacity: 0.4 }}
-                    >
-                      {item.number}
-                    </span>
-                    <div>
-                      <p className="font-display text-xs tracking-[0.2em] uppercase font-black mb-1" style={{ color: "var(--pink)" }}>
-                        {item.label}
-                      </p>
-                      <p className="text-sm leading-relaxed" style={{ color: "var(--dark-grey)" }}>
-                        {item.body}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* CTAs */}
-              <div className="mt-8 flex flex-wrap items-center gap-4">
-                <Link
-                  href={auditUrl}
-                  className="font-display text-sm tracking-widest uppercase font-black px-8 py-4 transition-opacity hover:opacity-90 inline-block"
-                  style={{ backgroundColor: "var(--pink)", color: "#fff" }}
-                >
-                  Take the Blind Spot Audit →
-                </Link>
-                <Link
-                  href="#services"
-                  className="font-display text-sm tracking-widest uppercase font-semibold border-b-2 pb-0.5 transition-opacity hover:opacity-60"
-                  style={{ color: "var(--black)", borderColor: "var(--black)" }}
-                >
-                  See How It Works
-                </Link>
-              </div>
-            </div>
-
           </div>
+        </div>
+
+        {/* ── BLOCK 2: Body + items + CTAs — full width below ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+
+          {/* Left: intro copy */}
+          <div>
+            <p
+              className="font-display text-xs tracking-[0.25em] uppercase font-semibold mb-5"
+              style={{ color: "var(--pink)" }}
+            >
+              I'm Kye Simmons
+            </p>
+            <p className="text-base leading-relaxed font-semibold mb-4" style={{ color: "var(--dark-grey)" }}>
+              <strong>I'm Kye</strong> — {bodyIntro}
+            </p>
+            {body.map((para, i) => (
+              <p key={i} className="text-base leading-relaxed mb-4" style={{ color: "var(--dark-grey)" }}>
+                {para}
+              </p>
+            ))}
+
+            {/* CTAs */}
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <Link
+                href={auditUrl}
+                className="font-display text-sm tracking-widest uppercase font-black px-8 py-4 transition-opacity hover:opacity-90 inline-block"
+                style={{ backgroundColor: "var(--pink)", color: "#fff" }}
+              >
+                Take the Blind Spot Audit →
+              </Link>
+              <Link
+                href="#services"
+                className="font-display text-sm tracking-widest uppercase font-semibold border-b-2 pb-0.5 transition-opacity hover:opacity-60"
+                style={{ color: "var(--black)", borderColor: "var(--black)" }}
+              >
+                See How It Works
+              </Link>
+            </div>
+          </div>
+
+          {/* Right: numbered items */}
+          <div>
+            {items.map((item, index) => (
+              <div
+                key={item._key}
+                className="flex gap-4 py-5"
+                style={index > 0 ? { borderTop: "1px solid rgba(0,0,0,0.12)" } : undefined}
+              >
+                <span
+                  className="font-display font-black text-2xl shrink-0 w-10"
+                  style={{ color: "var(--pink)", opacity: 0.4 }}
+                >
+                  {item.number}
+                </span>
+                <div>
+                  <p
+                    className="font-display text-xs tracking-[0.2em] uppercase font-black mb-1"
+                    style={{ color: "var(--pink)" }}
+                  >
+                    {item.label}
+                  </p>
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--dark-grey)" }}>
+                    {item.body}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </div>
     </section>
