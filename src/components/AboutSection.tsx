@@ -63,8 +63,25 @@ const defaultItems: AboutItem[] = [
 ];
 
 const statItems = [
-  { stat: "ELITE", sub: "SPORT BACKGROUND" },
-  { stat: "2×", sub: "HIGH-PERFORMANCE ARENAS" },
+  {
+    stat: "ELITE",
+    sub: "SPORT BACKGROUND",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M6 3h12M6 3v6a6 6 0 0 0 12 0V3M6 3H4a2 2 0 0 0-2 2v1a4 4 0 0 0 4 4h.5M18 3h2a2 2 0 0 1 2 2v1a4 4 0 0 1-4 4h-.5" />
+        <path d="M12 15v6M8 21h8" />
+      </svg>
+    ),
+  },
+  {
+    stat: "2×",
+    sub: "HIGH-PERFORMANCE ARENAS",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    ),
+  },
 ];
 
 export default function AboutSection({
@@ -112,15 +129,18 @@ export default function AboutSection({
           ══════════════════════════════════════════════ */}
       <div className="relative hidden lg:grid grid-cols-2 items-stretch">
 
-        {/* Left: pink suit photo, constrained and centred */}
-        <div className="relative flex items-center justify-center p-10" style={{ minHeight: "620px" }}>
-          <div className="relative overflow-hidden" style={{ width: "520px", aspectRatio: "4/5" }}>
+        {/* Left: pink suit photo — top aligned with heading, bottom aligned with stats */}
+        <div className="relative" style={{ minHeight: "620px" }}>
+          <div
+            className="absolute overflow-hidden"
+            style={{ top: "64px", bottom: "64px", left: 0, right: 0 }}
+          >
             <Image
               src="/images/kye-photo-hero.png"
               alt="Kye Simmons"
               fill
-              className="object-cover object-center"
-              sizes="520px"
+              className="object-cover object-top"
+              sizes="50vw"
             />
           </div>
         </div>
@@ -161,9 +181,12 @@ export default function AboutSection({
               style={{ animationDelay: "0.7s" } as React.CSSProperties}
             >
               {statItems.map((item, i) => (
-                <div key={i} className="p-5 border" style={{ borderColor: "rgba(201,168,76,0.25)" }}>
-                  <p className="font-display font-black text-2xl" style={{ color: "var(--gold)" }}>{item.stat}</p>
-                  <p className="font-display text-xs tracking-widest uppercase mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>{item.sub}</p>
+                <div key={i} className="p-5 border flex flex-col gap-3" style={{ borderColor: "rgba(201,168,76,0.25)" }}>
+                  <span className="block w-6 h-6" style={{ color: "var(--gold)" }}>{item.icon}</span>
+                  <div>
+                    <p className="font-display font-black text-2xl" style={{ color: "var(--gold)" }}>{item.stat}</p>
+                    <p className="font-display text-xs tracking-widest uppercase mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>{item.sub}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -212,9 +235,12 @@ export default function AboutSection({
             style={{ animationDelay: "0.7s" } as React.CSSProperties}
           >
             {statItems.map((item, i) => (
-              <div key={i} className="p-4 border" style={{ borderColor: "rgba(201,168,76,0.25)" }}>
-                <p className="font-display font-black text-xl" style={{ color: "var(--gold)" }}>{item.stat}</p>
-                <p className="font-display text-xs tracking-widest uppercase mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>{item.sub}</p>
+              <div key={i} className="p-4 border flex flex-col gap-2" style={{ borderColor: "rgba(201,168,76,0.25)" }}>
+                <span className="block w-5 h-5" style={{ color: "var(--gold)" }}>{item.icon}</span>
+                <div>
+                  <p className="font-display font-black text-xl" style={{ color: "var(--gold)" }}>{item.stat}</p>
+                  <p className="font-display text-xs tracking-widest uppercase mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>{item.sub}</p>
+                </div>
               </div>
             ))}
           </div>
