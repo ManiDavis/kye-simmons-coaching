@@ -127,16 +127,16 @@ export default function AboutSection({
       {/* ══════════════════════════════════════════════
           DESKTOP BLOCK 1: image left / text right
           ══════════════════════════════════════════════ */}
-      <div className="relative hidden lg:grid grid-cols-2 items-stretch">
+      <div className="relative hidden lg:grid grid-cols-2 items-stretch max-w-7xl mx-auto px-6">
 
         {/* Left: pink suit photo — top aligned with heading, bottom aligned with stats */}
         <div className="relative" style={{ minHeight: "620px" }}>
           <div
             className="absolute overflow-hidden"
-            style={{ top: "64px", bottom: "64px", left: 0, right: 0 }}
+            style={{ top: "64px", bottom: "64px", left: 0, right: "24px" }}
           >
             <Image
-              src="/images/kye-photo-hero.png"
+              src="/images/kye-pink-scale-cropped.png"
               alt="Kye Simmons"
               fill
               className="object-cover object-top"
@@ -256,7 +256,7 @@ export default function AboutSection({
       <div className="lg:hidden flex justify-center mt-10">
       <div className="relative overflow-hidden" style={{ width: "80%", aspectRatio: "4/5" }}>
         <Image
-          src="/images/kye-photo-hero.png"
+          src="/images/kye-pink-scale-cropped.png"
           alt="Kye Simmons"
           fill
           className="object-cover object-center"
