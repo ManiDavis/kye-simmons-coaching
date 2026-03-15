@@ -1,7 +1,4 @@
-import Image from "next/image";
 import Link from "next/link";
-import { urlFor } from "@/sanity/lib/image";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { BLIND_SPOT_URL } from "@/lib/constants";
 
 interface Service {
@@ -11,15 +8,7 @@ interface Service {
   description?: string;
   ctaLabel?: string;
   ctaUrl?: string;
-  image?: { asset: SanityImageSource & { url: string; metadata?: { lqip?: string } }; alt?: string };
 }
-
-const localServiceImages: Record<string, string> = {
-  s1: "/images/kye-about.jpg",
-  s2: "/images/kye-headshot.jpg",
-  s3: "/images/kye-hero.png",
-  s4: "/images/kye-photo-hero.png",
-};
 
 const defaultServices: Service[] = [
   {
@@ -32,7 +21,7 @@ const defaultServices: Service[] = [
   },
   {
     _key: "s2",
-    title: "Blind Spot POWER Session",
+    title: "Blind Spot Power Session",
     tagline: "90-Minute Clarity Session",
     description: "One session. One blind spot exposed. Walk away with a precise diagnosis of the invisible friction keeping you stuck — and a clear action plan.",
     ctaLabel: "Book Now",
@@ -67,7 +56,7 @@ export default function ServicesSection({ services = defaultServices }: Services
       className="py-24 relative overflow-hidden"
       style={{ backgroundColor: "var(--black)" }}
     >
-      {/* Subtle gold texture overlay using CSS */}
+      {/* Subtle gold texture overlay */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
@@ -82,7 +71,6 @@ export default function ServicesSection({ services = defaultServices }: Services
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
-        {/* Section label */}
         <p
           className="font-display text-xs tracking-[0.3em] uppercase text-center mb-4"
           style={{ color: "var(--gold)" }}
@@ -96,7 +84,6 @@ export default function ServicesSection({ services = defaultServices }: Services
           Work With Kye
         </h2>
 
-        {/* Service cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service) => (
             <div
@@ -104,19 +91,8 @@ export default function ServicesSection({ services = defaultServices }: Services
               className="flex flex-col"
               style={{ backgroundColor: "var(--cream)" }}
             >
-              {/* Image */}
-              <div className="relative w-full aspect-[4/3] overflow-hidden">
-                <Image
-                  src={service.image?.asset
-                    ? urlFor(service.image.asset).width(600).height(450).fit("crop").url()
-                    : (localServiceImages[service._key] || "/images/kye-headshot.jpg")}
-                  alt={service.image?.alt || service.title}
-                  fill
-                  className="object-cover object-top"
-                  placeholder={service.image?.asset?.metadata?.lqip ? "blur" : "empty"}
-                  blurDataURL={service.image?.asset?.metadata?.lqip}
-                />
-              </div>
+              {/* Pink accent bar */}
+              <div style={{ height: "4px", backgroundColor: "var(--pink)" }} />
 
               {/* Content */}
               <div className="p-6 flex flex-col flex-1">
@@ -127,7 +103,10 @@ export default function ServicesSection({ services = defaultServices }: Services
                   {service.title}
                 </p>
                 {service.tagline && (
-                  <p className="font-display text-xs tracking-widest uppercase font-bold mb-3" style={{ color: "var(--dark-grey)" }}>
+                  <p
+                    className="font-display text-xs tracking-widest uppercase font-bold mb-4"
+                    style={{ color: "#8a6000" }}
+                  >
                     {service.tagline}
                   </p>
                 )}
