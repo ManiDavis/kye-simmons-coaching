@@ -8,6 +8,7 @@ import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import ServicesSection from "@/components/ServicesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import AboutMeSection from "@/components/AboutMeSection";
 import AuditCTA from "@/components/AuditCTA";
 import Footer from "@/components/Footer";
 
@@ -42,6 +43,8 @@ export default async function HomePage() {
       />
 
       <ServicesSection services={data?.services as never} />
+
+      <AboutMeSection />
 
       <AuditCTA
         heading={data?.auditHeading}
