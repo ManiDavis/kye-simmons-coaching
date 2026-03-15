@@ -37,6 +37,10 @@ const reviews = [
     src: "/images/reviews/review-florence-pierce.png",
     alt: "Florence Pierce recommends Kye Simmons Coaching: So inspiring: Kye helped me work out what I want, how to achieve it, and stop my life-long habit of spreading myself too thin.",
   },
+  {
+    src: "/images/reviews/review-on-the-fence.png",
+    alt: "Survey responses to 'What would you say to someone on the fence about working with me?': working with Khy is powerful, grounding and exactly the support you didn't know you needed. You're very passionate and want to see people succeed.",
+  },
 ];
 
 export default function TestimonialsSection() {
