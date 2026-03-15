@@ -30,7 +30,7 @@ export default function AboutMeSection() {
                 width: "clamp(200px, 28vw, 320px)",
                 height: "clamp(200px, 28vw, 320px)",
                 borderRadius: "50%",
-                border: "4px solid var(--pink)",
+                border: "4px solid var(--gold)",
               }}
             >
               <Image
