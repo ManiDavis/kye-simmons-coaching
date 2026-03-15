@@ -5,6 +5,7 @@ import { HOMEPAGE_QUERY } from "@/sanity/lib/queries";
 import { BLIND_SPOT_URL } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import PhotoHero from "@/components/PhotoHero";
 import AboutSection from "@/components/AboutSection";
 import ServicesSection from "@/components/ServicesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -28,6 +29,12 @@ export default async function HomePage() {
         auditCtaUrl={data?.auditCtaUrl ?? BLIND_SPOT_URL}
       />
 
+      <PhotoHero
+        title={data?.photoHeroTitle}
+        subtitle={data?.photoHeroSubtitle}
+        image={data?.photoHeroImage as never}
+      />
+
       <AboutSection
         headingLines={data?.aboutHeadingLines as never}
         blockquote={data?.aboutBlockquote}
@@ -38,13 +45,28 @@ export default async function HomePage() {
       />
 
       <TestimonialsSection
+        sectionHeading={data?.testimonialsSectionHeading}
+        topQuote={data?.testimonialsTopQuote}
+        topQuoteAuthor={data?.testimonialsTopQuoteAuthor}
+        bottomQuote={data?.testimonialsBottomQuote}
+        bottomQuoteAuthor={data?.testimonialsBottomQuoteAuthor}
+        reviewImages={data?.reviewImages as never}
         testimonials={data?.testimonials as never}
         featuredQuotes={data?.featuredQuotes as never}
       />
 
-      <ServicesSection services={data?.services as never} />
+      <ServicesSection
+        services={data?.services as never}
+        sectionHeading={data?.servicesSectionHeading}
+      />
 
-      <AboutMeSection />
+      <AboutMeSection
+        sectionTitle={data?.aboutMeSectionTitle}
+        image={data?.aboutMeImage as never}
+        body={data?.aboutMeBody as never}
+        ctaLabel={data?.aboutMeCtaLabel}
+        ctaUrl={data?.auditCtaUrl ?? BLIND_SPOT_URL}
+      />
 
       <AuditCTA
         heading={data?.auditHeading}

@@ -130,7 +130,43 @@ export const homepage = defineType({
       ],
     }),
 
+    // ── ABOUT ME (I'm Kye section) ────────────────────────
+    defineField({
+      name: "aboutMeSectionTitle",
+      title: "About Me Section Title",
+      type: "string",
+      description: 'e.g. "I\'m Kye"',
+    }),
+    defineField({
+      name: "aboutMeImage",
+      title: "About Me Photo (circular)",
+      type: "image",
+      options: { hotspot: true },
+      fields: [
+        defineField({ name: "alt", type: "string", title: "Alt Text" }),
+      ],
+    }),
+    defineField({
+      name: "aboutMeBody",
+      title: "About Me Body Paragraphs",
+      type: "array",
+      of: [defineArrayMember({ type: "text" })],
+      description: "Each item is a paragraph. Use italic style marker in the text if needed.",
+    }),
+    defineField({
+      name: "aboutMeCtaLabel",
+      title: "About Me CTA Label",
+      type: "string",
+      description: 'e.g. "Take the Free Blind Spot Audit"',
+    }),
+
     // ── SERVICES ──────────────────────────────────────────
+    defineField({
+      name: "servicesSectionHeading",
+      title: "Services Section Heading",
+      type: "string",
+      description: 'e.g. "Work With Kye"',
+    }),
     defineField({
       name: "services",
       title: "Services",
@@ -158,6 +194,49 @@ export const homepage = defineType({
     }),
 
     // ── TESTIMONIALS ──────────────────────────────────────
+    defineField({
+      name: "testimonialsSectionHeading",
+      title: "Testimonials Section Heading",
+      type: "string",
+      description: 'e.g. "What Our Clients Say"',
+    }),
+    defineField({
+      name: "testimonialsTopQuote",
+      title: "Testimonials Top Pull Quote",
+      type: "string",
+      description: 'e.g. "I didn\'t even know what I needed — Kye did"',
+    }),
+    defineField({
+      name: "testimonialsTopQuoteAuthor",
+      title: "Testimonials Top Quote Author",
+      type: "string",
+      description: 'e.g. "Kate Lesslie"',
+    }),
+    defineField({
+      name: "testimonialsBottomQuote",
+      title: "Testimonials Bottom Pull Quote",
+      type: "string",
+    }),
+    defineField({
+      name: "testimonialsBottomQuoteAuthor",
+      title: "Testimonials Bottom Quote Author",
+      type: "string",
+    }),
+    defineField({
+      name: "reviewImages",
+      title: "Review Screenshot Images",
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: "image",
+          options: { hotspot: false },
+          fields: [
+            defineField({ name: "alt", type: "string", title: "Alt Text / Description" }),
+          ],
+        }),
+      ],
+      description: "Screenshot images shown in the masonry grid. Upload new client review screenshots here.",
+    }),
     defineField({
       name: "testimonials",
       title: "Testimonials",

@@ -81,9 +81,10 @@ const defaultServices: Service[] = [
 
 interface ServicesSectionProps {
   services?: Service[];
+  sectionHeading?: string;
 }
 
-export default function ServicesSection({ services = defaultServices }: ServicesSectionProps) {
+export default function ServicesSection({ services = defaultServices, sectionHeading = "Work With Kye" }: ServicesSectionProps) {
   return (
     <section
       id="services"
@@ -115,7 +116,7 @@ export default function ServicesSection({ services = defaultServices }: Services
           className="font-display font-black text-center uppercase mb-16"
           style={{ color: "#fff", fontSize: "clamp(2rem,5vw,3.5rem)" }}
         >
-          Work With Kye
+          {sectionHeading}
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
