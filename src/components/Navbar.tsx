@@ -9,11 +9,11 @@ export default function Navbar() {
   useEffect(() => {
     const darkSections = ["about", "services", "audit"];
     const handleScroll = () => {
-      const y = window.scrollY + 80;
       const inDark = darkSections.some((id) => {
         const el = document.getElementById(id);
         if (!el) return false;
-        return y >= el.offsetTop && y < el.offsetTop + el.offsetHeight;
+        const rect = el.getBoundingClientRect();
+        return rect.top <= 80 && rect.bottom > 80;
       });
       setIsDark(inDark);
     };

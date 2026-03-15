@@ -52,12 +52,17 @@ export default function TestimonialsSection() {
     >
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
-        <p
-          className="font-display text-xs tracking-[0.3em] uppercase text-center mb-3"
-          style={{ color: "var(--gold)" }}
-        >
-          Testimonials
-        </p>
+        {/* Gold decorative rule */}
+        <div className="flex items-center justify-center gap-3 mb-3">
+          <span style={{ display: "block", width: "40px", height: "2px", backgroundColor: "var(--gold)" }} />
+          <p
+            className="font-display text-xs tracking-[0.3em] uppercase text-center"
+            style={{ color: "var(--dark-grey)" }}
+          >
+            Testimonials
+          </p>
+          <span style={{ display: "block", width: "40px", height: "2px", backgroundColor: "var(--gold)" }} />
+        </div>
         <h2
           className="font-display font-black text-center uppercase mb-4"
           style={{ color: "var(--pink)", fontSize: "clamp(2rem,5vw,3.5rem)" }}
@@ -66,7 +71,7 @@ export default function TestimonialsSection() {
         </h2>
         <p className="text-center text-lg font-semibold mb-12" style={{ color: "var(--dark-grey)" }}>
           &ldquo;I didn&apos;t even know what I needed — Kye did&rdquo;{" "}
-          <em style={{ color: "var(--gold)" }}>— Kate Lesslie</em>
+          <em style={{ color: "#8a6000" }}>— Kate Lesslie</em>
         </p>
 
         {/* Masonry grid of screenshot images */}
@@ -95,7 +100,7 @@ export default function TestimonialsSection() {
 
         <p className="text-center text-lg font-semibold mt-12" style={{ color: "var(--dark-grey)" }}>
           &ldquo;I got my first client within a week&rdquo;{" "}
-          <em style={{ color: "var(--gold)" }}>— Sarah</em>
+          <em style={{ color: "#8a6000" }}>— Sarah</em>
         </p>
       </div>
     </section>
