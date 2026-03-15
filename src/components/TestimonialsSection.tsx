@@ -48,16 +48,8 @@ export default function TestimonialsSection() {
     <section
       id="testimonials"
       className="py-24 relative overflow-hidden"
-      style={{ backgroundColor: "var(--black)" }}
+      style={{ backgroundColor: "var(--cream)" }}
     >
-      {/* Subtle dark texture */}
-      <div
-        className="absolute inset-0 opacity-20 pointer-events-none"
-        style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0)`,
-          backgroundSize: "24px 24px",
-        }}
-      />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         <p
@@ -72,7 +64,7 @@ export default function TestimonialsSection() {
         >
           What Our Clients Say
         </h2>
-        <p className="text-center text-lg font-semibold mb-12" style={{ color: "#fff" }}>
+        <p className="text-center text-lg font-semibold mb-12" style={{ color: "var(--dark-grey)" }}>
           &ldquo;I didn&apos;t even know what I needed — Kye did&rdquo;{" "}
           <em style={{ color: "var(--gold)" }}>— Kate Lesslie</em>
         </p>
@@ -101,7 +93,7 @@ export default function TestimonialsSection() {
           ))}
         </div>
 
-        <p className="text-center text-lg font-semibold mt-12" style={{ color: "#fff" }}>
+        <p className="text-center text-lg font-semibold mt-12" style={{ color: "var(--dark-grey)" }}>
           &ldquo;I got my first client within a week&rdquo;{" "}
           <em style={{ color: "var(--gold)" }}>— Sarah</em>
         </p>
