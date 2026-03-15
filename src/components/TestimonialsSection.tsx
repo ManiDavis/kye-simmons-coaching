@@ -1,152 +1,49 @@
 import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
-interface Testimonial {
-  _key: string;
-  type: "chat" | "facebook";
-  author?: string;
-  handle?: string;
-  content?: string;
-  screenshot?: { asset: SanityImageSource & { url: string; metadata?: { lqip?: string } }; alt?: string };
-}
-
-interface FeaturedQuote {
-  _key: string;
-  quote: string;
-  author: string;
-}
-
-const defaultTestimonials: Testimonial[] = [
+const reviews = [
   {
-    _key: "t1",
-    type: "chat",
-    author: "Claire",
-    content: "OMG Kye. Its happeningggg 🤪 It bloody worked. Got my first paying client this weekend and have 8 calls booked for this week. Bloody love ya work sister. Mwah",
+    src: "/images/reviews/review-omg-kye.png",
+    alt: "Client message: OMG Kye. Its happeningggg. It bloody worked. Got my first paying client this weekend and have 8 calls booked for this week.",
   },
   {
-    _key: "t2",
-    type: "chat",
-    author: "Sarah",
-    content: "Sooo grateful Kye. You put my mind at ease. I stopped hustling and worrying and got so freaking clear and boom.. first client.",
+    src: "/images/reviews/review-kevin-justice.png",
+    alt: "Kevin Justice recommends Kye Simmons Coaching: Great content delivered in a friendly manner to grow/relaunch your business, including content creation and most importantly belief in yourself.",
   },
   {
-    _key: "t3",
-    type: "chat",
-    author: "Client",
-    content: "A clear repeatable system. So clear. So easy. Now I can concentrate on those high impact actions. Grateful Kye.",
+    src: "/images/reviews/review-sooo-grateful.png",
+    alt: "Client message: Sooo grateful Kye. You put my mind at ease. I stopped hustling and worrying and got so freaking clear and boom.. first client.",
   },
   {
-    _key: "t4",
-    type: "facebook",
-    author: "Kevin Justice",
-    handle: "12 Aug",
-    content: "Great content delivered in a friendly manner to grow/relaunch your business, including content creation and most importantly belief in yourself.",
+    src: "/images/reviews/review-claire-simmons.png",
+    alt: "Claire Simmons recommends Kye Simmons Coaching: Kye is awesome! I love her immense passion, enthusiasm and commitment to assisting you along the way to succeed in your business.",
   },
   {
-    _key: "t5",
-    type: "facebook",
-    author: "Claire Simmons",
-    handle: "12 Aug",
-    content: "Kye is awesome! I love her immense passion, enthusiasm and commitment to assisting you along the way to succeed in your business. She has created a programme that's realistic, achievable provides great support, honest feedback, no BS, straight talking and provides everything you need....so long as you do the work, you'll reap the rewards! I highly recommend working with you, it's also fun, uplifting and invigorating — your energy is contagious 🤩",
+    src: "/images/reviews/review-clear-repeatable.png",
+    alt: "Client message: A clear repeatable system. So clear. So easy. Now I can concentrate on those high impact actions. Grateful Kye.",
   },
   {
-    _key: "t6",
-    type: "facebook",
-    author: "Megan Clarke",
-    handle: "18 July",
-    content: "So Many Ideas, so much guessing...... 🥴🥴🥴 I needed to cut the noise - big time! In 5 minutes flat, she sliced through the noise in my head, mirrored back my magic, and got me pointing in the right direction like the boss energy strategist she is 🔥 Kye doesn't just talk strategy, she feels it. Lives it. Breathes it.",
+    src: "/images/reviews/review-russell-gilbert.png",
+    alt: "Russell Gilbert recommends Kye Simmons Coaching: Kye is amazing at what she does! Her strategies are easy to implement and get great results!",
+  },
+  {
+    src: "/images/reviews/review-launchpad.png",
+    alt: "Client message: Hey kye wanted to let your know that after Launchpad I lost total motivation, but went back to the lessons. And can gladly report I've signed 2 clients this week. Proof in concept baby!",
+  },
+  {
+    src: "/images/reviews/review-megan-clarke.png",
+    alt: "Megan Clarke: So Many Ideas, so much guessing. I needed to cut the noise - big time! In 5 minutes flat, she sliced through the noise in my head.",
+  },
+  {
+    src: "/images/reviews/review-florence-pierce.png",
+    alt: "Florence Pierce recommends Kye Simmons Coaching: So inspiring: Kye helped me work out what I want, how to achieve it, and stop my life-long habit of spreading myself too thin.",
+  },
+  {
+    src: "/images/reviews/review-on-the-fence.png",
+    alt: "Survey responses to 'What would you say to someone on the fence about working with me?': working with Khy is powerful, grounding and exactly the support you didn't know you needed. You're very passionate and want to see people succeed.",
   },
 ];
 
-const defaultQuotes: FeaturedQuote[] = [
-  { _key: "q1", quote: "I didn't even know what I needed — Kye did", author: "Kate Lesslie" },
-  { _key: "q2", quote: "I got my first client within a week", author: "Sarah" },
-];
-
-interface TestimonialsSectionProps {
-  testimonials?: Testimonial[];
-  featuredQuotes?: FeaturedQuote[];
-}
-
-function ChatBubble({ testimonial }: { testimonial: Testimonial }) {
-  return (
-    <div
-      className="rounded-2xl p-5 shadow-sm"
-      style={{ backgroundColor: "#fff", border: "1px solid rgba(0,0,0,0.08)" }}
-    >
-      <p className="text-sm leading-relaxed mb-3" style={{ color: "#1a1a1a" }}>
-        {testimonial.content}
-      </p>
-      {testimonial.author && (
-        <div className="flex items-center gap-2">
-          <div
-            className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-black"
-            style={{ backgroundColor: "var(--pink)", color: "#fff" }}
-          >
-            {testimonial.author[0]}
-          </div>
-          <span className="text-xs font-semibold" style={{ color: "#555" }}>
-            {testimonial.author}
-          </span>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function FacebookCard({ testimonial }: { testimonial: Testimonial }) {
-  return (
-    <div
-      className="rounded-xl p-5 shadow-sm"
-      style={{ backgroundColor: "#fff", border: "1px solid rgba(0,0,0,0.1)" }}
-    >
-      {testimonial.screenshot?.asset ? (
-        <div className="relative w-full aspect-video rounded-lg overflow-hidden">
-          <Image
-            src={urlFor(testimonial.screenshot.asset).width(600).height(400).url()}
-            alt={testimonial.screenshot.alt || testimonial.author || "Testimonial"}
-            fill
-            className="object-cover"
-          />
-        </div>
-      ) : (
-        <>
-          <div className="flex items-center gap-3 mb-3">
-            <div
-              className="w-10 h-10 rounded-full flex items-center justify-center font-black text-sm"
-              style={{ backgroundColor: "#e0d4c8", color: "var(--dark-grey)" }}
-            >
-              {testimonial.author?.[0] || "?"}
-            </div>
-            <div>
-              <p className="font-semibold text-sm" style={{ color: "#1a1a1a" }}>
-                {testimonial.author}{" "}
-                <span className="font-normal text-xs" style={{ color: "#888" }}>
-                  recommends <strong>Kye Simmons Coaching</strong>
-                </span>
-              </p>
-              <p className="text-xs" style={{ color: "#aaa" }}>
-                {testimonial.handle}
-              </p>
-            </div>
-          </div>
-          <p className="text-sm leading-relaxed" style={{ color: "#333" }}>
-            {testimonial.content}
-          </p>
-        </>
-      )}
-    </div>
-  );
-}
-
-export default function TestimonialsSection({
-  testimonials = defaultTestimonials,
-  featuredQuotes = defaultQuotes,
-}: TestimonialsSectionProps) {
-  const chatBubbles = testimonials.filter((t) => t.type === "chat");
-  const facebookCards = testimonials.filter((t) => t.type === "facebook");
-
+export default function TestimonialsSection() {
   return (
     <section
       id="testimonials"
@@ -175,36 +72,39 @@ export default function TestimonialsSection({
         >
           What Our Clients Say
         </h2>
+        <p className="text-center text-lg font-semibold mb-12" style={{ color: "#fff" }}>
+          &ldquo;I didn&apos;t even know what I needed — Kye did&rdquo;{" "}
+          <em style={{ color: "var(--gold)" }}>— Kate Lesslie</em>
+        </p>
 
-        {/* First featured quote */}
-        {featuredQuotes[0] && (
-          <p className="text-center text-lg font-semibold mb-12" style={{ color: "#fff" }}>
-            &ldquo;{featuredQuotes[0].quote}&rdquo;{" "}
-            <em style={{ color: "var(--gold)" }}>— {featuredQuotes[0].author}</em>
-          </p>
-        )}
-
-        {/* Two-column grid: chat left, facebook right */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="space-y-4">
-            {chatBubbles.map((t) => (
-              <ChatBubble key={t._key} testimonial={t} />
-            ))}
-          </div>
-          <div className="space-y-4">
-            {facebookCards.map((t) => (
-              <FacebookCard key={t._key} testimonial={t} />
-            ))}
-          </div>
+        {/* Masonry grid of screenshot images */}
+        <div
+          style={{
+            columns: "3 300px",
+            columnGap: "1.25rem",
+          }}
+        >
+          {reviews.map((review) => (
+            <div
+              key={review.src}
+              style={{ breakInside: "avoid", marginBottom: "1.25rem" }}
+            >
+              <Image
+                src={review.src}
+                alt={review.alt}
+                width={0}
+                height={0}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                style={{ width: "100%", height: "auto", borderRadius: "12px" }}
+              />
+            </div>
+          ))}
         </div>
 
-        {/* Second featured quote */}
-        {featuredQuotes[1] && (
-          <p className="text-center text-lg font-semibold mt-12" style={{ color: "#fff" }}>
-            &ldquo;{featuredQuotes[1].quote}&rdquo;{" "}
-            <em style={{ color: "var(--gold)" }}>— {featuredQuotes[1].author}</em>
-          </p>
-        )}
+        <p className="text-center text-lg font-semibold mt-12" style={{ color: "#fff" }}>
+          &ldquo;I got my first client within a week&rdquo;{" "}
+          <em style={{ color: "var(--gold)" }}>— Sarah</em>
+        </p>
       </div>
     </section>
   );
