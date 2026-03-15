@@ -13,6 +13,14 @@ export const HOMEPAGE_QUERY = defineQuery(`
       crop
     },
     heroBannerItems,
+    photoHeroTitle,
+    photoHeroSubtitle,
+    photoHeroImage{
+      asset->{_id, url, metadata{lqip, dimensions}},
+      alt,
+      hotspot,
+      crop
+    },
     aboutHeadingLines[]{
       _key,
       text,
@@ -27,6 +35,16 @@ export const HOMEPAGE_QUERY = defineQuery(`
       label,
       body
     },
+    aboutMeSectionTitle,
+    aboutMeImage{
+      asset->{_id, url, metadata{lqip, dimensions}},
+      alt,
+      hotspot,
+      crop
+    },
+    aboutMeBody,
+    aboutMeCtaLabel,
+    servicesSectionHeading,
     services[]{
       _key,
       title,
@@ -38,6 +56,16 @@ export const HOMEPAGE_QUERY = defineQuery(`
         asset->{_id, url, metadata{lqip, dimensions}},
         alt
       }
+    },
+    testimonialsSectionHeading,
+    testimonialsTopQuote,
+    testimonialsTopQuoteAuthor,
+    testimonialsBottomQuote,
+    testimonialsBottomQuoteAuthor,
+    reviewImages[]{
+      _key,
+      asset->{_id, url, metadata{lqip, dimensions}},
+      alt
     },
     testimonials[]{
       _key,
