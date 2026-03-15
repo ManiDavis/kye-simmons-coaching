@@ -1,5 +1,39 @@
+import type { JSX } from "react";
 import Link from "next/link";
 import { BLIND_SPOT_URL } from "@/lib/constants";
+
+const serviceIcons: Record<string, JSX.Element> = {
+  s1: (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2C8 2 4 6 4 12c0 2 .5 3.5 1.5 5L12 22l6.5-5c1-1.5 1.5-3 1.5-5 0-6-4-10-8-10z"/>
+      <circle cx="12" cy="11" r="2.5"/>
+      <path d="M8.5 17.5c.5-1.5 1.8-2.5 3.5-2.5s3 1 3.5 2.5"/>
+    </svg>
+  ),
+  s2: (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+      <circle cx="12" cy="12" r="3"/>
+      <line x1="12" y1="3" x2="12" y2="1"/>
+      <line x1="12" y1="23" x2="12" y2="21"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+    </svg>
+  ),
+  s3: (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+    </svg>
+  ),
+  s4: (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+      <circle cx="9" cy="7" r="4"/>
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+    </svg>
+  ),
+};
 
 interface Service {
   _key: string;
@@ -40,7 +74,7 @@ const defaultServices: Service[] = [
     title: "Launchpad Community",
     tagline: "Ongoing Peer Community",
     description: "A curated community of purpose-driven leaders doing the identity work. Accountability, collaboration, and a space to expand together.",
-    ctaLabel: "Join Us",
+    ctaLabel: "Join Now",
     ctaUrl: BLIND_SPOT_URL,
   },
 ];
@@ -96,6 +130,11 @@ export default function ServicesSection({ services = defaultServices }: Services
 
               {/* Content */}
               <div className="p-6 flex flex-col flex-1">
+                {serviceIcons[service._key] && (
+                  <div className="mb-3" style={{ color: "var(--pink)" }}>
+                    {serviceIcons[service._key]}
+                  </div>
+                )}
                 <p
                   className="font-display font-black text-xl uppercase mb-1 leading-tight"
                   style={{ color: "var(--pink)" }}
