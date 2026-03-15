@@ -7,10 +7,15 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
+    const darkSections = ["about", "services", "audit"];
     const handleScroll = () => {
-      const hero = document.getElementById("hero");
-      if (!hero) return;
-      setIsDark(window.scrollY >= hero.offsetTop + hero.offsetHeight - 64);
+      const y = window.scrollY + 80;
+      const inDark = darkSections.some((id) => {
+        const el = document.getElementById(id);
+        if (!el) return false;
+        return y >= el.offsetTop && y < el.offsetTop + el.offsetHeight;
+      });
+      setIsDark(inDark);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
