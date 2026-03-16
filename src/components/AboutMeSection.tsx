@@ -84,7 +84,7 @@ export default function AboutMeSection({
             </h2>
 
             <div className="space-y-4 text-base leading-relaxed" style={{ color: "var(--dark-grey)" }}>
-              {body.map((para, i) => (
+              {(body ?? defaultBody).map((para, i) => (
                 <p
                   key={i}
                   style={
